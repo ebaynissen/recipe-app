@@ -1,6 +1,13 @@
 import { Container, Nav, Navbar, Form, Button} from 'react-bootstrap'
 
-export default function Navigation() {
+export default function Navigation({recipes, searched}) {
+    function handleSearch() {
+        let search = document.getElementById("search").value;
+        if(recipes.map(recipe => recipe.name).includes(search)) {
+          searched(recipes.filter(recipe => recipe.name === search)[0]);
+        }
+    }
+
     return (
       <Navbar expand="lg">
       <Container fluid>
@@ -18,8 +25,9 @@ export default function Navigation() {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              id="search"
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-success" onClick={handleSearch}>Search</Button>
           </Form>
         </Navbar.Collapse>
       </Container>
