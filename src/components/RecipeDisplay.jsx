@@ -1,11 +1,18 @@
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
-import { Recipe } from '../classes/Recipe';
 
 export default function RecipeDisplay({Recipe}) {
-const [unit, setUnit] = useState(Recipe.unit); // boolean state based on switch for which unit shown.
-const ingredient_list = Object.keys(Recipe.ingredients);
-const [dispIng, setDispIng] = useState(Recipe.ingredients); // This can change when units are changed?
+    const [unit, setUnit] = useState(Recipe.unit); // boolean state based on switch for which unit shown.
+    const ingredient_list = Object.keys(Recipe.ingredients);
+    const [portions, setPortions] = useState(Recipe.portions);
+    const [dispIng, setDispIng] = useState(Recipe.getIngredients(portions));
+
+    function changeAmounts(e){
+        let newPortions = e.target.value;
+        setPortions(newPortions);
+        setDispIng(Recipe.getIngredients(newPortions));
+    }
+
     return (
         <Container>
             <Row>
@@ -17,9 +24,22 @@ const [dispIng, setDispIng] = useState(Recipe.ingredients); // This can change w
                 </Col>
                 <Col>
                 <div className="form-check form-switch">
-                <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" 
-                onChange={e => unitChange(e, unit, setUnit, dispIng, setDispIng)} checked= {unit}/>
-                <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Switch to US units</label>
+                <Form>
+                    <div className='form-group '>
+                    <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" 
+                    onChange={e => unitChange(e, unit, setUnit, dispIng, setDispIng)} checked= {unit}/>
+                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Switch to US units</label>
+                    <select className="form-control" id="portionSelect" onChange={changeAmounts} value={portions}>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                    <Form.Label>Portions</Form.Label>
+                    </div>      
+                </Form>
+
             </div>
                 </Col>
             </Row>
@@ -35,9 +55,8 @@ const [dispIng, setDispIng] = useState(Recipe.ingredients); // This can change w
                     <h3>Ingredients</h3>
                     <ul>
                         
-                        {ingredient_list.map((ingredient) => 
-                        <li key={ingredient}>
-                            {ingredient} - {(Object.entries(dispIng[ingredient])[0]).join(" ") }</li>)}
+                        {ingredient_list.map((ing) => 
+                        <li key={ing}>{`${ing} - ${dispIng[ing].amount} ${dispIng[ing].unit}`}</li>)}
                     </ul>
                 </Col>
                 <Col>
