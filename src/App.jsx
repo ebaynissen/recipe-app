@@ -8,14 +8,14 @@ import {useState} from 'react';
 
 function App() {
   const [recipes, setRecipes] = useState([new Recipe(
-    "Carbonara", 
+    "Carbonara",  "unknown",
     {"Pasta" : {400 : "gram"}, "Eggs": { 2: "pieces"}, "Bacon" : {100: "gram"}, "Cheese" : {100 : "gram"}}, 
     "30", 
     "Very good carbonara", 
     ["Cook Pasta", "Fry bacon", "Mix Sauce", "Assemble", "Profit"]
   ), 
   new Recipe(
-    "Carbonara2", 
+    "Carbonara2", "unknown",
     ["Pasta2", "Eggs", "Bacon2", "Cheese"], 
     "30", 
     "Very good carbonara2", 
@@ -29,12 +29,12 @@ function App() {
         <Col><DisplayCard content={<Navigation recipes={recipes} searched={setSelectedRecipe}/>}/></Col>
       </Row>
       <Row> 
-        <Col><DisplayCard content={"hello1"}/></Col>                 {/*TODO: Popular Recipes*/}
-        <Col><DisplayCard content={"hello2"}/></Col>                 {/*TODO: Saved Recipes*/}
-        <Col><DisplayCard content={"hello3"}/></Col>                 {/*TODO: Unit Calculator*/}
+        <Col><DisplayCard content={"Popular Recipes"}/></Col>                 {/*TODO: Popular Recipes*/}
+        <Col><DisplayCard content={"Saved Recipes"}/></Col>                 {/*TODO: Saved Recipes*/}
+        <Col><DisplayCard content={"Unit Calculator"}/></Col>                 {/*TODO: Unit Calculator*/}
       </Row>
       <Row> 
-        <Col><DisplayCard content={"hello4"}/></Col>                 {/*TODO: Create new recipe!*/}
+        <Col><DisplayCard content={"Create new recipe!"}/></Col>                 {/*TODO: Create new recipe!*/}
         <Col xs={9}>                                                {/*Displays Selected Recipe*/}
           <DisplayCard content={<RecipeDisplay Recipe={selectedRecipe}/>}/>
         </Col>
