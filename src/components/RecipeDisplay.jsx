@@ -3,7 +3,8 @@ import { useState } from 'react';
 
 export default function RecipeDisplay({Recipe}) {
 const [unit, setUnit] = useState(false); // boolean state based on switch for which unit shown.
-const ingredient_list = Recipe.ingredients;
+const ingredient_list = Object.keys(Recipe.ingredients);
+const [dispIng, setDispIng] = useState(Recipe.ingredients); // This can change when units are changed?
     return (
         <Container>
             <Row>
@@ -31,7 +32,10 @@ const ingredient_list = Recipe.ingredients;
                 <Col>
                     <h3>Ingredients</h3>
                     <ul>
-                        {ingredient_list.map((ingredient) => <li key={ingredient}>{ingredient}</li>)}
+                        
+                        {ingredient_list.map((ingredient) => 
+                        <li key={ingredient}>
+                            {ingredient} - {(Object.entries(Recipe.ingredients[ingredient])[0]).join(" ") }</li>)}
                     </ul>
                 </Col>
                 <Col>
