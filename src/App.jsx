@@ -3,6 +3,7 @@ import Navigation from './components/Navigation';
 import { Container, Row, Col } from 'react-bootstrap';
 import DisplayCard from './components/DisplayCard';
 import RecipeDisplay from './components/RecipeDisplay';
+import NewRecipeForm from './components/NewRecipeForm';
 import {Recipe} from './classes/Recipe';
 import {useState} from 'react';
 
@@ -34,10 +35,13 @@ function App() {
         <Col><DisplayCard content={"Unit Calculator"}/></Col>                 {/*TODO: Unit Calculator*/}
       </Row>
       <Row> 
-        <Col><DisplayCard content={"Create new recipe!"}/></Col>                 {/*TODO: Create new recipe!*/}
+                         
         <Col xs={9}>                                                {/*Displays Selected Recipe*/}
           <DisplayCard content={<RecipeDisplay Recipe={selectedRecipe}/>}/>
         </Col>
+        <Col>
+          <DisplayCard content={<NewRecipeForm />}/>  {/*TODO: Create new recipe!*/}
+          </Col>
       </Row>
     </Container>
   )
