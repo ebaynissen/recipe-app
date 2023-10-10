@@ -3,19 +3,20 @@ import Navigation from './components/Navigation';
 import { Container, Row, Col } from 'react-bootstrap';
 import DisplayCard from './components/DisplayCard';
 import RecipeDisplay from './components/RecipeDisplay';
+import NewRecipeForm from './components/NewRecipeForm';
 import {Recipe} from './classes/Recipe';
 import {useState} from 'react';
 
 function App() {
   const [recipes, setRecipes] = useState([new Recipe(
-    "Carbonara", 
-    ["Pasta", "Eggs", "Bacon", "Cheese"], 
+    "Carbonara",  "unknown",
+    {"Pasta" : {400 : "gram"}, "Eggs": { 2: "pieces"}, "Bacon" : {100: "gram"}, "Cheese" : {100 : "gram"}}, 
     "30", 
     "Very good carbonara", 
     ["Cook Pasta", "Fry bacon", "Mix Sauce", "Assemble", "Profit"]
   ), 
   new Recipe(
-    "Carbonara2", 
+    "Carbonara2", "unknown",
     ["Pasta2", "Eggs", "Bacon2", "Cheese"], 
     "30", 
     "Very good carbonara2", 
@@ -29,15 +30,18 @@ function App() {
         <Col><DisplayCard content={<Navigation recipes={recipes} searched={setSelectedRecipe}/>}/></Col>
       </Row>
       <Row> 
-        <Col><DisplayCard content={"hello"}/></Col>                 {/*TODO: Popular Recipes*/}
-        <Col><DisplayCard content={"hello"}/></Col>                 {/*TODO: Saved Recipes*/}
-        <Col><DisplayCard content={"hello"}/></Col>                 {/*TODO: smth here mby*/}
+        <Col><DisplayCard content={"Popular Recipes"}/></Col>                 {/*TODO: Popular Recipes*/}
+        <Col><DisplayCard content={"Saved Recipes"}/></Col>                 {/*TODO: Saved Recipes*/}
+        <Col><DisplayCard content={"Unit Calculator"}/></Col>                 {/*TODO: Unit Calculator*/}
       </Row>
       <Row> 
-        <Col><DisplayCard content={"hello"}/></Col>                 {/*TODO: smth else here mby*/}
+                         
         <Col xs={9}>                                                {/*Displays Selected Recipe*/}
           <DisplayCard content={<RecipeDisplay Recipe={selectedRecipe}/>}/>
         </Col>
+        <Col>
+          <DisplayCard content={<NewRecipeForm />}/>  {/*TODO: Create new recipe!*/}
+          </Col>
       </Row>
     </Container>
   )
