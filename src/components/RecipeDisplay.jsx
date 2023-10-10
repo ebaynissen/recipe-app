@@ -1,6 +1,9 @@
 import { Container, Row, Col } from 'react-bootstrap';
+import { useState } from 'react';
 
 export default function RecipeDisplay({Recipe}) {
+const [unit, setUnit] = useState(false); // boolean state based on switch for which unit shown.
+const ingredient_list = Recipe.ingredients;
     return (
         <Container>
             <Row>
@@ -8,28 +11,43 @@ export default function RecipeDisplay({Recipe}) {
                     <h1>{Recipe.name}</h1>
                 </Col>
                 <Col>  
-                    <h2>{Recipe.time} Minutes</h2>
+                    
+                </Col>
+                <Col>
+                <div className="form-check form-switch">
+                <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={e => unitChange(e, unit, setUnit)} checked= {unit}/>
+                <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Switch to US units</label>
+            </div>
                 </Col>
             </Row>
             <Row>
                 <Col>
+                    <small>{Recipe.time} Minutes</small>
                     <p>{Recipe.description}</p>
+                    <hr/>
                 </Col>
             </Row>
             <Row>       
                 <Col>
-                    <h2>Instructions</h2>
+                    <h3>Ingredients</h3>
+                    <ul>
+                        {ingredient_list.map((ingredient) => <li key={ingredient}>{ingredient}</li>)}
+                    </ul>
+                </Col>
+                <Col>
+                    <h3>Instructions </h3>
                     <ol>
                         {Recipe.steps.map((step) => <li key={step}>{step}</li>)}
                     </ol>
                 </Col>
-                <Col>
-                    <h2>Ingredients</h2>
-                    <ul>
-                        {Recipe.ingredients.map((ingredient) => <li key={ingredient}>{ingredient}</li>)}
-                    </ul>
-                </Col>
+                
             </Row>
         </Container>
     )
+}
+
+function unitChange(e, unit, setUnit) {
+
+setUnit(!unit);
+
 }

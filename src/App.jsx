@@ -9,7 +9,7 @@ import {useState} from 'react';
 function App() {
   const [recipes, setRecipes] = useState([new Recipe(
     "Carbonara", 
-    ["Pasta", "Eggs", "Bacon", "Cheese"], 
+    [{"Pasta" : {400 : gram}}, {"Eggs": { 2: pieces}}, {"Bacon" : {100: gram}}, {"Cheese" : {100 : gram}}], 
     "30", 
     "Very good carbonara", 
     ["Cook Pasta", "Fry bacon", "Mix Sauce", "Assemble", "Profit"]
