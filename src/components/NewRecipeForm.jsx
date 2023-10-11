@@ -161,7 +161,7 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
   form[7].value, //time
   form[8].value, //description
   form[9].value,  //steps
-  unitUS,
+  unitUS, //unitType
   form[2].value //portions
   );
 
@@ -178,7 +178,7 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
 
 function addHandler(e, ingredients, setIngredients, tempItem, setTempItem){
   var temp = ingredients;
-  temp[tempItem.Item] = {"amount":tempItem.Amount, "unit":tempItem.Unit};
+  temp[tempItem.Item] = {amount : tempItem.Amount, unit:tempItem.Unit};
   setIngredients(temp);
   setTempItem({"Item": tempItem.Item , "Amount": tempItem.Amount, "Unit": tempItem.Unit});
   //tempItem should be cleared in combination of clearing the form so they match... 
