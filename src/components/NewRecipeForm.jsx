@@ -29,7 +29,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                     Switch to US units</label>
             </div>
 	
-            <Form noValidate validated={validated} onSubmit={(e) => handleSubmit(e, addToCatalogue, ingredients, unitUS,)}>
+            <Form noValidate validated={validated} onSubmit={(e) => handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated)}>
                 <Form.Group controlId="form.name">
                     <Form.Label>Recipe Name</Form.Label>
                     <Form.Control required type="text" placeholder="Enter recipe name" />
@@ -123,18 +123,16 @@ export default function NewRecipeForm({addToCatalogue}) {
     );
 }
 
-function handleSubmit(e, addToCatalogue, ingredients, unitUS){
+function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated){
   e.preventDefault();
   e.stopPropagation();
   e.target.classList.add("was-validated");
   const form = e.currentTarget;
 
   if (form.checkValidity() === false) {
-    //console.log("Form is not valid!")
-    // User needs to fill in required fields.
   }
   else{
-  //console.log("Time to create a new recipe!")
+ 
   const newRec = new Recipe(form[0].value, //time
     form[1].value, //author
   ingredients, 
@@ -146,7 +144,13 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS){
   );
 
   addToCatalogue(newRec)
-  //console.log("Added to catalogue!")
+
+  /* Reset States */
+    setIngredients([""]);
+    setUnitUS(false);
+    setValidated(false);
+
+
 
   e.target.classList.remove("was-validated");
   }
