@@ -25,7 +25,7 @@ Button to add more fields if needed.
             {/*TODO: Create FORM object*/}
             {/*TODO: Input fields for all the different states. (required for some)*/}
             {/*TODO: Submit button to create Recipe object -> submitHandler*/}
-            {/*
+            
             <div className="form-check form-switch">
                 <input
                     className="form-check-input"
@@ -42,10 +42,10 @@ Button to add more fields if needed.
                     Switch to US units
                 </label>
             </div>
-	*/}
+	
             <Form>
                 <Form.Group controlId="form.name">
-                    <Form.Label>Name</Form.Label>
+                    <Form.Label>Recipe Name</Form.Label>
                     <Form.Control type="text" placeholder="Enter recipe name" />
                 </Form.Group>
                 <Form.Group controlId="form.author">
@@ -69,6 +69,7 @@ Button to add more fields if needed.
                             <Form.Control
                                 type="text"
                                 placeholder="Ingredient"
+                            
                             />
                         </Col>
                         <Col>
@@ -84,7 +85,7 @@ Button to add more fields if needed.
                             </Form.Select>
                         </Col>
                         <Col>
-                            <Button className="btn btn-success">Add</Button>
+                            <Button className="btn btn-success" onClick={e => addHandler(ingredients, setIngredients)}>Add</Button>
                         </Col>
                     </Row>
                     <div>
@@ -109,7 +110,7 @@ Button to add more fields if needed.
                     <Form.Control
                         as="textarea"
                         rows={3}
-                        placeholder="Enter recipe description"
+                        placeholder="Enter a short recipe description"
                     />
                 </Form.Group>
                 <Form.Group controlId="form.steps">
@@ -128,4 +129,10 @@ Button to add more fields if needed.
     );
 }
 
-function submitHandler() {}
+function submitHandler() {
+    const newRec = new Recipe();
+}
+function addHandler(ingredients, setIngredients){
+    setIngredients(ingredients);
+
+}
