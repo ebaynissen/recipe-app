@@ -75,7 +75,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                             </Form.Select>
                         </Col>
                         <Col>
-                            <Button className="btn btn-success" onClick={e => addHandler(ingredients, setIngredients)}>Add</Button>
+                            <Button className="btn btn-success" onClick={(e) => addHandler(e, ingredients, setIngredients)}>Add</Button>
                         </Col>
                     </Row>
                     <div>
@@ -157,7 +157,10 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
 }
 
 
-function addHandler(ingredients, setIngredients){
-
-   // setIngredients(ingredients);
+function addHandler(e, ingredients, setIngredients){
+  const form = e.currentTarget;
+  const ing = form[3];
+  var temp = ingredients;
+  temp[ing] = {"amount":form[4], "unit":form[5]};
+  setIngredients(temp);
 }
