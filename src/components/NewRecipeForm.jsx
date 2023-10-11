@@ -7,15 +7,16 @@ import App from "../App";
 
 export default function NewRecipeForm({addToCatalogue}) {
     
-    const [ingredients, setIngredients] = useState([""]);
+    const [ingredients, setIngredients] = useState({});
     const [unitUS, setUnitUS] = useState(false);
     const [validated, setValidated] = useState(false);
+    const [tempItem, setTempItem] = useState({"Item": "Ingredient" , "Amount": 0, "Unit": "pieces"});
+    
+  /*TODO: Use states for form fields to make clearing easier?*/
 
     return (
         <Container>
             <b> Create new recipe! </b>
-            {/*TODO: Submit button to create Recipe object -> submitHandler*/}
-            
             <div className="form-check form-switch">
                 <input
                     className="form-check-input"
@@ -29,7 +30,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                     Switch to US units</label>
             </div>
 	
-            <Form noValidate validated={validated} onSubmit={(e) => handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated)}>
+            <Form id="form" noValidate validated={validated} onSubmit={(e) => handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated)}>
                 <Form.Group controlId="form.name">
                     <Form.Label>Recipe Name</Form.Label>
                     <Form.Control required type="text" placeholder="Enter recipe name" />
@@ -44,7 +45,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                     />
                     <Form.Control.Feedback type="invalid"> Please enter an Author! </Form.Control.Feedback>
                 </Form.Group>
-				<Form.Group controlId="form.portions">
+				        <Form.Group controlId="form.portions">
                     <Form.Label>Portions</Form.Label>
                     <Form.Control 
                       required 
@@ -55,35 +56,55 @@ export default function NewRecipeForm({addToCatalogue}) {
                 </Form.Group>
                 <Form.Group controlId="form.ingredients">
                     <Form.Label>Ingredients</Form.Label>
+                    
                     <Row>
+                    <small> You cannot add the same ingredient twice, it will update the first one.</small>
                         <Col>
                             <Form.Control
                                 type="text"
-                                placeholder="Ingredient"
+                                placeholder={tempItem.Item}
+                                onChange={(e) => {
+                                  const t = tempItem;  
+                                  t.Item = e.target.value;
+                                  setTempItem(t);
+                                  }}
                             />
                         </Col>
                         <Col>
-                            <Form.Control type="number" placeholder="Amount" />
+                            <Form.Control type="number" placeholder={0} 
+                            onChange={(e) => {
+                                  const t = tempItem;  
+                                  t.Amount = e.target.value;
+                                  setTempItem(t)}}/>
                         </Col>
                         <Col>
-                            <Form.Select aria-label="Unit">
+                            <Form.Select aria-label="Unit"
+                            onChange={(e) => {
+                                  const t = tempItem;  
+                                  t.Unit = e.target.value;
+                                  setTempItem(t)}}>
                                 <option value={"pieces"}>pieces</option>
                                 <option value={"g"}>g</option>
                                 <option value={"ml"}>ml</option>
                                 <option value={"tbs"}>tbs</option>
                                 <option value={"tsp"}>tsp</option>
+                                
+                               
                             </Form.Select>
                         </Col>
                         <Col>
-                            <Button className="btn btn-success" onClick={(e) => addHandler(e, ingredients, setIngredients)}>Add</Button>
+                            <Button className="btn btn-success" 
+                            onClick={(e) => addHandler(e, ingredients, setIngredients, tempItem, setTempItem)}>Add</Button>
                         </Col>
                     </Row>
                     <div>
                         Added ingredients:
                         <ul>
-                            {ingredients.map((ing) => (
-                                <li key={ing}>{ing}</li>
-                            ))}
+                            {Object.keys(ingredients).map((ing) => (
+                              <li key={ing}>{`${ing} - ${ingredients[ing].amount} ${ingredients[ing].unit}`}</li>)
+                            )}
+                            {/*TODO: Add a (x) button at the ingredients to remove? */}
+                            
                         </ul>
                     </div>
                 </Form.Group>
@@ -96,7 +117,6 @@ export default function NewRecipeForm({addToCatalogue}) {
                     />
                     <Form.Control.Feedback type="invalid"> Please enter the time required to make this recipe! </Form.Control.Feedback>
                 </Form.Group>
-
                 <Form.Group controlId="form.description">
                     <Form.Label>Description</Form.Label>
                     <Form.Control
@@ -129,10 +149,8 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
   e.target.classList.add("was-validated");
   const form = e.currentTarget;
 
-  if (form.checkValidity() === false) {
-  }
+  if (form.checkValidity() === false) {}
   else{
- 
   const newRec = new Recipe(form[0].value, //time
     form[1].value, //author
   ingredients, 
@@ -144,23 +162,21 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
   );
 
   addToCatalogue(newRec)
-
-  /* Reset States */
+  /* Reset States and form*/
     setIngredients([""]);
     setUnitUS(false);
     setValidated(false);
-
-
-
-  e.target.classList.remove("was-validated");
+    e.target.reset();
+    e.target.classList.remove("was-validated");
   }
 }
 
 
-function addHandler(e, ingredients, setIngredients){
-  const form = e.currentTarget;
-  const ing = form[3];
+function addHandler(e, ingredients, setIngredients, tempItem, setTempItem){
   var temp = ingredients;
-  temp[ing] = {"amount":form[4], "unit":form[5]};
+  temp[tempItem.Item] = {"amount":tempItem.Amount, "unit":tempItem.Unit};
   setIngredients(temp);
+  setTempItem({"Item": tempItem.Item , "Amount": tempItem.Amount, "Unit": tempItem.Unit});
+  //This should be cleared in combination of clearing ingredient inputs
+{/*TODO: Clear ingredient inputs?? How to get access to those form.group items?? */}
 }
