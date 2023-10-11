@@ -8,20 +8,22 @@ import {Recipe} from './classes/Recipe';
 import {useState} from 'react';
 
 function App() {
-  const [recipes, setRecipes] = useState([new Recipe(
-    "Carbonara",  "unknown",
-    {"Pasta" : {400 : "gram"}, "Eggs": { 2: "pieces"}, "Bacon" : {100: "gram"}, "Cheese" : {100 : "gram"}}, 
-    "30", 
-    "Very good carbonara", 
-    ["Cook Pasta", "Fry bacon", "Mix Sauce", "Assemble", "Profit"]
-  ), 
-  new Recipe(
-    "Carbonara2", "unknown",
-    ["Pasta2", "Eggs", "Bacon2", "Cheese"], 
-    "30", 
-    "Very good carbonara2", 
-    ["Cook Pasta", "Fry bacon", "Mix Sauce2", "Assemble", "Profit"]
-  )]); 
+  const [recipes, setRecipes] = useState([
+    new Recipe(
+      "Carbonara",  "unknown",
+      {"Pasta" : {amount:400, unit:"gram"}, "Eggs": { amount:2, unit:"pieces"}, "Bacon" : {amount:100, unit:"gram"}, "Cheese" : {amount:100 , unit:"gram"}}, 
+      "30", 
+      "Very good carbonara", 
+      ["Cook Pasta", "Fry bacon", "Mix Sauce", "Assemble", "Profit"]
+    ), 
+    new Recipe(
+      "Carbonara2", "unknown",
+      {"Pasta" : {amount:400, unit:"gram"}, "Eggs": { amount:2, unit:"pieces"}, "Bacon" : {amount:100, unit:"gram"}, "Cheese" : {amount:100 , unit:"gram"}}, 
+      "30", 
+      "Very good carbonara2", 
+      ["Cook Pasta", "Fry bacon", "Mix Sauce2", "Assemble", "Profit"]
+    )
+  ]); 
   const [selectedRecipe, setSelectedRecipe] = useState(recipes[0]);
 
   return (
@@ -30,17 +32,16 @@ function App() {
         <Col><DisplayCard content={<Navigation recipes={recipes} searched={setSelectedRecipe}/>}/></Col>
       </Row>
       <Row> 
-        <Col><DisplayCard content={"Popular Recipes"}/></Col>                 {/*TODO: Popular Recipes*/}
-        <Col><DisplayCard content={"Saved Recipes"}/></Col>                 {/*TODO: Saved Recipes*/}
-        <Col><DisplayCard content={"Unit Calculator"}/></Col>                 {/*TODO: Unit Calculator*/}
+        <Col><DisplayCard content={"Popular Recipes"}/></Col>
+        <Col><DisplayCard content={"Saved Recipes"}/></Col>
+        <Col><DisplayCard content={"Unit Calculator"}/></Col>
       </Row>
-      <Row> 
-                         
-        <Col xs={9}>                                                {/*Displays Selected Recipe*/}
+      <Row>                    
+        <Col xs={8}>
           <DisplayCard content={<RecipeDisplay Recipe={selectedRecipe}/>}/>
         </Col>
         <Col>
-          <DisplayCard content={<NewRecipeForm />}/>  {/*TODO: Create new recipe!*/}
+          <DisplayCard content={<NewRecipeForm />}/>
           </Col>
       </Row>
     </Container>
