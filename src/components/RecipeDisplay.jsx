@@ -45,7 +45,7 @@ export default function RecipeDisplay({Recipe}) {
             </Row>
             <Row>
                 <Col>
-                    <small>By: <i>{Recipe.author}</i> Approx time: {Recipe.time} Minutes</small>
+                    <small>By: <i>{Recipe.author}</i> <div className="vr mx-2"></div>Time: {Recipe.time} Minutes <div className="vr mx-2"></div> Portions: {Recipe.portions}</small>
                     <p>{Recipe.description}</p>
                     <hr/>
                 </Col>

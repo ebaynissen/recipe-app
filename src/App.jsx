@@ -36,9 +36,8 @@ function App() {
         <Col><DisplayCard content={"Saved Recipes"}/></Col>
         <Col><DisplayCard content={"Unit Calculator"}/></Col>
       </Row>
-      <Row> 
-                         
-        <Col xs={9}>
+      <Row>                    
+        <Col xs={8}>
           <DisplayCard content={<RecipeDisplay Recipe={selectedRecipe}/>}/>
         </Col>
         <Col>
