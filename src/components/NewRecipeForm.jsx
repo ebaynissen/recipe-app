@@ -2,28 +2,18 @@ import { Container, Row, Col, Form } from "react-bootstrap";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Recipe } from "../classes/Recipe";
+import App from "../App";
 
-export default function NewRecipeForm() {
+
+export default function NewRecipeForm({addToCatalogue}) {
+    
     const [ingredients, setIngredients] = useState([""]);
-    const [name, setName] = useState("");
-    const [unit, setUnit] = useState(false);
-    /*TODO: States for recipe parameters*/
-    /*TODO: state to select input unit Type*/
+    const [unitUS, setUnitUS] = useState(false);
+    const [validated, setValidated] = useState(false);
 
-    /* ingredients: Can we make a button to add fields? 
-Start with some amount of boxes to enter ingredients 
-for each ingredient:
-- textbox for name, 
-- textbox for amount
-- select from options for unit (grams, ml, pieces, tbs, tsp...))
-
-Button to add more fields if needed. 
-*/
     return (
         <Container>
             <b> Create new recipe! </b>
-            {/*TODO: Create FORM object*/}
-            {/*TODO: Input fields for all the different states. (required for some)*/}
             {/*TODO: Submit button to create Recipe object -> submitHandler*/}
             
             <div className="form-check form-switch">
@@ -32,35 +22,36 @@ Button to add more fields if needed.
                     type="checkbox"
                     role="switch"
                     id="flexSwitchCheckDefault"
-                    onChange={() => setUnit(!unit)}
-                    checked={unit}
+                    onChange={() => setUnitUS(!unitUS)}
+                    checked={unitUS}
                 />
-                <label
-                    className="form-check-label"
-                    htmlFor="flexSwitchCheckDefault"
-                >
-                    Switch to US units
-                </label>
+                <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
+                    Switch to US units</label>
             </div>
 	
-            <Form>
+            <Form noValidate validated={validated} onSubmit={(e) => handleSubmit(e, addToCatalogue, ingredients, unitUS,)}>
                 <Form.Group controlId="form.name">
                     <Form.Label>Recipe Name</Form.Label>
-                    <Form.Control type="text" placeholder="Enter recipe name" />
+                    <Form.Control required type="text" placeholder="Enter recipe name" />
+                    <Form.Control.Feedback type="invalid"> Please enter a Recipe name! </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="form.author">
                     <Form.Label>Author</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter recipe author"
+                    <Form.Control 
+                      required 
+                      type="text" 
+                      placeholder="Enter recipe author"
                     />
+                    <Form.Control.Feedback type="invalid"> Please enter an Author! </Form.Control.Feedback>
                 </Form.Group>
 				<Form.Group controlId="form.portions">
                     <Form.Label>Portions</Form.Label>
-                    <Form.Control
-                        type="number"
-                        placeholder="Enter portions"
+                    <Form.Control 
+                      required 
+                      type="number" 
+                      placeholder="Enter portions" 
                     />
+                    <Form.Control.Feedback type="invalid"> Please enter the amount of portions! </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="form.ingredients">
                     <Form.Label>Ingredients</Form.Label>
@@ -69,7 +60,6 @@ Button to add more fields if needed.
                             <Form.Control
                                 type="text"
                                 placeholder="Ingredient"
-                            
                             />
                         </Col>
                         <Col>
@@ -97,12 +87,14 @@ Button to add more fields if needed.
                         </ul>
                     </div>
                 </Form.Group>
-                <Form.Group controlId="form.time">
+                <Form.Group controlId="form.time" >
                     <Form.Label>Time (mins)</Form.Label>
                     <Form.Control
+                        required
                         type="number"
                         placeholder="Enter recipe time"
                     />
+                    <Form.Control.Feedback type="invalid"> Please enter the time required to make this recipe! </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="form.description">
@@ -116,10 +108,12 @@ Button to add more fields if needed.
                 <Form.Group controlId="form.steps">
                     <Form.Label>Steps</Form.Label>
                     <Form.Control
+                        required
                         as="textarea"
                         rows={3}
                         placeholder="Descripe in steps how to make the recipe"
                     />
+                    <Form.Control.Feedback type="invalid"> Please enter Recipe instructions! </Form.Control.Feedback>
                 </Form.Group>
 				<Button variant="primary" type="submit">
 					Submit
@@ -129,10 +123,37 @@ Button to add more fields if needed.
     );
 }
 
-function submitHandler() {
-    const newRec = new Recipe();
-}
-function addHandler(ingredients, setIngredients){
-    setIngredients(ingredients);
+function handleSubmit(e, addToCatalogue, ingredients, unitUS){
+  e.preventDefault();
+  e.stopPropagation();
+  e.target.classList.add("was-validated");
+  const form = e.currentTarget;
 
+  if (form.checkValidity() === false) {
+    //console.log("Form is not valid!")
+    // User needs to fill in required fields.
+  }
+  else{
+  //console.log("Time to create a new recipe!")
+  const newRec = new Recipe(form[0].value, //time
+    form[1].value, //author
+  ingredients, 
+  form[7].value, //time
+  form[8].value, //description
+  form[9].value,  //steps
+  unitUS,
+  form[2].value //portions
+  );
+
+  addToCatalogue(newRec)
+  //console.log("Added to catalogue!")
+
+  e.target.classList.remove("was-validated");
+  }
+}
+
+
+function addHandler(ingredients, setIngredients){
+
+   // setIngredients(ingredients);
 }

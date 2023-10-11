@@ -26,6 +26,10 @@ function App() {
   ]); 
   const [selectedRecipe, setSelectedRecipe] = useState(recipes[0]);
 
+
+  function addToCatalogue(newRecipe){
+    setRecipes([newRecipe, ...recipes])
+  }
   return (
     <Container fluid className='min-vh-100 vh-100 m-0 p-0'>
       <Row> 
@@ -41,7 +45,7 @@ function App() {
           <DisplayCard content={<RecipeDisplay Recipe={selectedRecipe}/>}/>
         </Col>
         <Col>
-          <DisplayCard content={<NewRecipeForm />}/>
+          <DisplayCard content={<NewRecipeForm addToCatalogue={addToCatalogue} />}/>
           </Col>
       </Row>
     </Container>
