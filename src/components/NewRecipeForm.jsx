@@ -12,7 +12,8 @@ export default function NewRecipeForm({addToCatalogue}) {
     const [validated, setValidated] = useState(false);
     const [tempItem, setTempItem] = useState({"Item": "Ingredient" , "Amount": 0, "Unit": "pieces"});
     
-  /*TODO: Use states for form fields to make clearing easier?*/
+  /*TODO: Use states for form fields to make clearing easier??? not sure how this works.
+      - Tried using value = {state} and onChange to update the state but this didn't work locked the input field. */
 
     return (
         <Container>
@@ -151,6 +152,9 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
 
   if (form.checkValidity() === false) {}
   else{
+
+    /*There might be a better way to do this using the controlId but idk how?? */
+
   const newRec = new Recipe(form[0].value, //time
     form[1].value, //author
   ingredients, 
@@ -177,6 +181,6 @@ function addHandler(e, ingredients, setIngredients, tempItem, setTempItem){
   temp[tempItem.Item] = {"amount":tempItem.Amount, "unit":tempItem.Unit};
   setIngredients(temp);
   setTempItem({"Item": tempItem.Item , "Amount": tempItem.Amount, "Unit": tempItem.Unit});
-  //This should be cleared in combination of clearing ingredient inputs
+  //tempItem should be cleared in combination of clearing the form so they match... 
 {/*TODO: Clear ingredient inputs?? How to get access to those form.group items?? */}
 }
