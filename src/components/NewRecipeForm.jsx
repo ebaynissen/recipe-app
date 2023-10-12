@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import { Recipe } from "../classes/Recipe";
 
 export default function NewRecipeForm() {
-    const [ingredients, setIngredients] = useState([""]);
+    const [ingredients, setIngredients] = useState({});
     const [name, setName] = useState("");
     const [unit, setUnit] = useState(false);
     /*TODO: States for recipe parameters*/
@@ -62,21 +62,21 @@ Button to add more fields if needed.
                         placeholder="Enter portions"
                     />
                 </Form.Group>
-                <Form.Group controlId="form.ingredients">
+                <Form.Group>
                     <Form.Label>Ingredients</Form.Label>
                     <Row>
                         <Col>
                             <Form.Control
                                 type="text"
                                 placeholder="Ingredient"
-                            
+                                id="Ingredient"
                             />
                         </Col>
                         <Col>
-                            <Form.Control type="number" placeholder="Amount" />
+                            <Form.Control type="number" placeholder="Amount" id="Amount"/>
                         </Col>
                         <Col>
-                            <Form.Select aria-label="Unit">
+                            <Form.Select aria-label="Unit" id="Unit">
                                 <option value={"pieces"}>pieces</option>
                                 <option value={"g"}>g</option>
                                 <option value={"ml"}>ml</option>
@@ -91,9 +91,7 @@ Button to add more fields if needed.
                     <div>
                         Added ingredients:
                         <ul>
-                            {ingredients.map((ing) => (
-                                <li key={ing}>{ing}</li>
-                            ))}
+                            <li key="test">Pasta</li>
                         </ul>
                     </div>
                 </Form.Group>
@@ -121,7 +119,7 @@ Button to add more fields if needed.
                         placeholder="Descripe in steps how to make the recipe"
                     />
                 </Form.Group>
-				<Button variant="primary" type="submit">
+				<Button variant="primary" type="submit" onClick={e => submitHandler(e)}>
 					Submit
 				</Button>
             </Form>
@@ -129,10 +127,18 @@ Button to add more fields if needed.
     );
 }
 
-function submitHandler() {
+function submitHandler(e) {
+    e.preventDefault();
     const newRec = new Recipe();
 }
 function addHandler(ingredients, setIngredients){
+    const Ingredients = document.getElementById("Ingredient").value;
+    const Amount = document.getElementById("Amount").value;
+    const Unit = document.getElementById("Unit").value;
+    ingredients[Ingredients] = {amount: {Amount}, unit: {Unit}};
+
     setIngredients(ingredients);
 
+    document.getElementById("Ingredient").value = "";
+    document.getElementById("Amount").value = "";
 }
