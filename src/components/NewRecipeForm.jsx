@@ -55,7 +55,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                     />
                     <Form.Control.Feedback type="invalid"> Please enter the amount of portions! </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group controlId="form.ingredients">
+                <Form.Group>
                     <Form.Label>Ingredients</Form.Label>
                     
                     <Row>
@@ -63,7 +63,8 @@ export default function NewRecipeForm({addToCatalogue}) {
                         <Col>
                             <Form.Control
                                 type="text"
-                                placeholder={tempItem.Item}
+                                placeholder="Ingredient"
+                                id="ingredient"
                                 onChange={(e) => {
                                   const t = tempItem;  
                                   t.Item = e.target.value;
@@ -72,7 +73,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                             />
                         </Col>
                         <Col>
-                            <Form.Control type="number" placeholder={0} 
+                            <Form.Control type="number" placeholder={0} id="amount" min={0} 
                             onChange={(e) => {
                                   const t = tempItem;  
                                   t.Amount = e.target.value;
@@ -115,6 +116,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                         required
                         type="number"
                         placeholder="Enter recipe time"
+                        min = {0}
                     />
                     <Form.Control.Feedback type="invalid"> Please enter the time required to make this recipe! </Form.Control.Feedback>
                 </Form.Group>
@@ -183,4 +185,6 @@ function addHandler(e, ingredients, setIngredients, tempItem, setTempItem){
   setTempItem({"Item": tempItem.Item , "Amount": tempItem.Amount, "Unit": tempItem.Unit});
   //tempItem should be cleared in combination of clearing the form so they match... 
 {/*TODO: Clear ingredient inputs?? How to get access to those form.group items?? */}
+document.getElementById("ingredient").value = "";
+document.getElementById("amount").value = "";
 }
