@@ -10,7 +10,7 @@ export default function NewRecipeForm({addToCatalogue}) {
     const [ingredients, setIngredients] = useState({});
     const [unitUS, setUnitUS] = useState(false);
     const [validated, setValidated] = useState(false);
-    
+    const [tempItem, setTempItem] = useState({"Item": "Ingredient" , "Amount": 0, "Unit": "pieces"});
   /*TODO: Add a (x) button at the ingredients to remove? */
 
     return (
@@ -65,6 +65,11 @@ export default function NewRecipeForm({addToCatalogue}) {
                                 type="text"
                                 placeholder="Ingredient"
                                 id="form.ingredient"
+                                onChange={(e) => {
+                                  const t = tempItem;  
+                                  t.Item = e.target.value;
+                                  setTempItem(t);
+                                  }}
                             />
                         </Col>
                         <Col>
@@ -73,11 +78,19 @@ export default function NewRecipeForm({addToCatalogue}) {
                                 placeholder={0} 
                                 id="form.amount" 
                                 min={0} 
+                                onChange={(e) => {
+                                  const t = tempItem;  
+                                  t.Amount = e.target.value;
+                                  setTempItem(t)}}
                             />
                         </Col>
                         <Col>
                             <Form.Select aria-label="Unit"
-                                id="form.unit">
+                                id="form.unit"
+                                onChange={(e) => {
+                                  const t = tempItem;  
+                                  t.Unit = e.target.value;
+                                  setTempItem(t)}}>
                                 <option value={"pieces"}>pieces</option>
                                 <option value={"g"}>g</option>
                                 <option value={"ml"}>ml</option>
@@ -87,7 +100,9 @@ export default function NewRecipeForm({addToCatalogue}) {
                         </Col>
                         <Col>
                             <Button className="btn btn-success" 
-                            onClick={() => addHandler(ingredients, setIngredients)}>Add</Button>
+                            onClick={() => addHandler(ingredients, setIngredients, tempItem, setTempItem)}>
+                            Add
+                            </Button>
                         </Col>
                     </Row>
                     <div>
@@ -151,17 +166,17 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
 
   const newRec = new Recipe(form[0].value, //time
     form[1].value, //author
-  ingredients, 
-  form[7].value, //time
-  form[8].value, //description
-  form[9].value,  //steps
-  unitUS, //unitType
-  form[2].value //portions
-  );
+    ingredients, 
+    form[7].value, //time
+    form[8].value, //description
+    form[9].value,  //steps
+    unitUS, //unitType
+    form[2].value //portions
+    );
 
   addToCatalogue(newRec)
   /* Reset States and form*/
-    setIngredients([""]);
+    setIngredients({});
     setUnitUS(false);
     setValidated(false);
     e.target.reset();
@@ -169,15 +184,15 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
   }
 }
 
-function addHandler(ingredients, setIngredients){
-    const temp = ingredients;
-    const ing = document.getElementById("form.ingredient").value;
-    const amo = document.getElementById("form.amount").value;
-    const uni = document.getElementById("form.unit").value;
-    temp[ing] = {amount : amo, unit:uni};
-    setIngredients(temp); //Why does this not make ingredients re-render....
-
+function addHandler(ingredients, setIngredients, tempItem, setTempItem){
+    var temp = ingredients;
+    temp[tempItem.Item] = {amount : tempItem.Amount, unit:tempItem.Unit};
+    setIngredients(temp);
+    setTempItem({"Item": "" , "Amount": "", "Unit": "g"});
     document.getElementById("form.ingredient").value = "";
     document.getElementById("form.amount").value = "";
-    document.getElementById("form.unit").value ="g"
+    document.getElementById("form.unit").value ="g";
+
 }
+
+
