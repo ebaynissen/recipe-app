@@ -45,7 +45,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                     />
                     <Form.Control.Feedback type="invalid"> Please enter an Author! </Form.Control.Feedback>
                 </Form.Group>
-				        <Form.Group >
+				        <Form.Group>
                     <Form.Label>Portions</Form.Label>
                     <Form.Control 
                       required 

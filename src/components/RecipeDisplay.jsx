@@ -6,15 +6,16 @@ export default function RecipeDisplay({Recipe}) {
 
     useEffect(() => {
         // Update the relevant states when new recipe selected
+        setUnitUS()
         setIngredientList(Object.keys(Recipe.ingredients));
         setPortions(Recipe.portions);
-        setDispIng(Recipe.getIngredients(portions));
+        setDispIng(Recipe.ingredients);
       }, [Recipe]);
 
     const [unitUS, setUnitUS] = useState(Recipe.unitUS); // boolean state based on switch for which unit shown.
     const [ingredient_list, setIngredientList] = useState(Object.keys(Recipe.ingredients));
     const [portions, setPortions] = useState(Recipe.portions);
-    const [dispIng, setDispIng] = useState(Recipe.getIngredients(portions));
+    const [dispIng, setDispIng] = useState(Recipe.ingredients);
 
     function changeAmounts(e){
         let newPortions = e.target.value;
