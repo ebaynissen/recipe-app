@@ -1,4 +1,5 @@
 import { Container, Row, Col, Form } from "react-bootstrap";
+import CloseButton from 'react-bootstrap/CloseButton';
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Recipe } from "../classes/Recipe";
@@ -109,7 +110,8 @@ export default function NewRecipeForm({addToCatalogue}) {
                         Added ingredients:
                         <ul>
                             {Object.keys(ingredients).map((ing) => (
-                              <li key={ing}>{`${ing} - ${ingredients[ing].amount} ${ingredients[ing].unit}`}</li>)
+                              <li key={ing}>{`${ing} - ${ingredients[ing].amount} ${ingredients[ing].unit}`} 
+                              <CloseButton onClick={() => removeHandler(ingredients, setIngredients, ing)}></CloseButton></li>)
                             )}
                         </ul>
                     </div>
@@ -162,7 +164,7 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
   if (form.checkValidity() === false) {}
   else{
 
-    /*Could be done using id. */
+    /*Could be done using id. This might be neater.*/
 
   const newRec = new Recipe(form[0].value, //time
     form[1].value, //author
@@ -193,6 +195,12 @@ function addHandler(ingredients, setIngredients, tempItem, setTempItem){
     document.getElementById("form.amount").value = "";
     document.getElementById("form.unit").value ="g";
 
+}
+
+function removeHandler(ingredients, setIngredients, ing) {
+
+const temp = Object.fromEntries(Object.entries(ingredients).filter(([key, val]) => key!==ing));
+setIngredients(temp);
 }
 
 
