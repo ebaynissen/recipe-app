@@ -30,26 +30,28 @@ export default function NewRecipeForm({addToCatalogue}) {
             </div>
 	
             <Form id="form" noValidate validated={validated} onSubmit={(e) => handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated)}>
-                <Form.Group controlId="form.name">
+                <Form.Group >
                     <Form.Label>Recipe Name</Form.Label>
-                    <Form.Control required type="text" placeholder="Enter recipe name" />
+                    <Form.Control required type="text" placeholder="Enter recipe name" id="form.name"/>
                     <Form.Control.Feedback type="invalid"> Please enter a Recipe name! </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group controlId="form.author">
+                <Form.Group >
                     <Form.Label>Author</Form.Label>
                     <Form.Control 
                       required 
                       type="text" 
                       placeholder="Enter recipe author"
+                      id="form.author"
                     />
                     <Form.Control.Feedback type="invalid"> Please enter an Author! </Form.Control.Feedback>
                 </Form.Group>
-				        <Form.Group controlId="form.portions">
+				        <Form.Group >
                     <Form.Label>Portions</Form.Label>
                     <Form.Control 
                       required 
                       type="number" 
                       placeholder="Enter portions" 
+                      id="form.portions"
                     />
                     <Form.Control.Feedback type="invalid"> Please enter the amount of portions! </Form.Control.Feedback>
                 </Form.Group>
@@ -85,7 +87,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                         </Col>
                         <Col>
                             <Button className="btn btn-success" 
-                            onClick={(e) => addHandler(e, ingredients, setIngredients)}>Add</Button>
+                            onClick={() => addHandler(ingredients, setIngredients)}>Add</Button>
                         </Col>
                     </Row>
                     <div>
@@ -97,31 +99,34 @@ export default function NewRecipeForm({addToCatalogue}) {
                         </ul>
                     </div>
                 </Form.Group>
-                <Form.Group controlId="form.time" >
+                <Form.Group  >
                     <Form.Label>Time (mins)</Form.Label>
                     <Form.Control
                         required
                         type="number"
                         placeholder="Enter recipe time"
                         min = {0}
+                        id="form.time"
                     />
                     <Form.Control.Feedback type="invalid"> Please enter the time required to make this recipe! </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group controlId="form.description">
+                <Form.Group >
                     <Form.Label>Description</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={3}
                         placeholder="Enter a short recipe description"
+                        id="form.description"
                     />
                 </Form.Group>
-                <Form.Group controlId="form.steps">
+                <Form.Group >
                     <Form.Label>Steps</Form.Label>
                     <Form.Control
                         required
                         as="textarea"
                         rows={3}
                         placeholder="Descripe in steps how to make the recipe"
+                        id="form.steps"
                     />
                     <Form.Control.Feedback type="invalid"> Please enter Recipe instructions! </Form.Control.Feedback>
                 </Form.Group>
@@ -164,13 +169,13 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
   }
 }
 
-function addHandler(e, ingredients, setIngredients){
+function addHandler(ingredients, setIngredients){
     const temp = ingredients;
     const ing = document.getElementById("form.ingredient").value;
     const amo = document.getElementById("form.amount").value;
     const uni = document.getElementById("form.unit").value;
     temp[ing] = {amount : amo, unit:uni};
-    setIngredients(temp);
+    setIngredients(temp); //Why does this not make ingredients re-render....
 
     document.getElementById("form.ingredient").value = "";
     document.getElementById("form.amount").value = "";
