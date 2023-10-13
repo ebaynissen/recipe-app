@@ -10,10 +10,8 @@ export default function NewRecipeForm({addToCatalogue}) {
     const [ingredients, setIngredients] = useState({});
     const [unitUS, setUnitUS] = useState(false);
     const [validated, setValidated] = useState(false);
-    const [tempItem, setTempItem] = useState({"Item": "Ingredient" , "Amount": 0, "Unit": "pieces"});
     
-  /*TODO: Use states for form fields to make clearing easier??? not sure how this works.
-      - Tried using value = {state} and onChange to update the state but this didn't work locked the input field. */
+  /*TODO: Add a (x) button at the ingredients to remove? */
 
     return (
         <Container>
@@ -96,8 +94,6 @@ export default function NewRecipeForm({addToCatalogue}) {
                             {Object.keys(ingredients).map((ing) => (
                               <li key={ing}>{`${ing} - ${ingredients[ing].amount} ${ingredients[ing].unit}`}</li>)
                             )}
-                            {/*TODO: Add a (x) button at the ingredients to remove? */}
-                            
                         </ul>
                     </div>
                 </Form.Group>
@@ -129,7 +125,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                     />
                     <Form.Control.Feedback type="invalid"> Please enter Recipe instructions! </Form.Control.Feedback>
                 </Form.Group>
-				<Button variant="primary" type="submit" onClick={e => submitHandler(e)}>
+				<Button variant="primary" type="submit" onClick={e => handleSubmit(e)}>
 					Submit
 				</Button>
             </Form>
@@ -146,7 +142,7 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
   if (form.checkValidity() === false) {}
   else{
 
-    /*There might be a better way to do this using the controlId but idk how?? */
+    /*Could be done using id. */
 
   const newRec = new Recipe(form[0].value, //time
     form[1].value, //author
@@ -171,25 +167,12 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
 
 function addHandler(e, ingredients, setIngredients){
   var temp = ingredients; //get ingredient list
-  temp[document.getElementById("form.ingredient").value] = 
-  {amount : document.getElementById("form.amount").value, unit : document.getElementById("form.unit").value}; //add ingredient to list.
-  setIngredients(temp); //update ingredient list
+  temp[document.getElementById("form.ingredient").value] = {amount : document.getElementById("form.amount").value, unit : document.getElementById("form.unit").value}; //add ingredient to list.
+  setIngredients(temp); //update ingredient list - this should re-render the list
 
 
-{/*TODO: Clear ingredient inputs - They need to be reset and show placeholder. */}
+{/*TODO: Clear ingredient inputs */}
 document.getElementById("form.ingredient").value = "";
 document.getElementById("form.amount").value = "";
-document.getElementById("form.unit").reset();
-
-/*  -- from main -- (Does not work!)
-
-const Ingredients = document.getElementById("Ingredient").value;
-    const Amount = document.getElementById("Amount").value;
-    const Unit = document.getElementById("Unit").value;
-    ingredients[Ingredients] = {amount: {Amount}, unit: {Unit}};
-
-    setIngredients(ingredients);
-
-    document.getElementById("Ingredient").value = "";
-    document.getElementById("Amount").value = "";*/
+document.getElementById("form.unit").value ="g"
 }

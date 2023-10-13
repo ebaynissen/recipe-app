@@ -1,4 +1,7 @@
 export class Recipe {
+
+    static id = 0;
+
     constructor(
         name = "Missing title", 
         author = "unknown", 
@@ -8,6 +11,7 @@ export class Recipe {
         steps = "Missing Steps", 
         unitUS = false,
         portions = 2
+        
     ) {
         this.name = name;
         this.author = author;
@@ -17,7 +21,9 @@ export class Recipe {
         this.steps = steps;
         this.unitUS = unitUS;
         this.portions = portions;
+        this.id = Recipe.id++;
     }
+    
 
     getIngredients(multiplier = 1, unitUS = false) {
         let ingredients = {};

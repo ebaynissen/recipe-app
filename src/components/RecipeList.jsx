@@ -9,7 +9,7 @@ export default function RecipeList({recipes, setView}) {
         <h4> Recipes to choose from: </h4>
 
         {recipes.map((rec) => 
-        <li key={rec}>
+        <li key={rec.id}>
             <button key={"Button"+rec} onClick={() => setView(rec)}>
                 <b>{rec.name}</b> <i>by {rec.author}</i>
             </button>
