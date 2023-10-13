@@ -65,38 +65,29 @@ export default function NewRecipeForm({addToCatalogue}) {
                                 type="text"
                                 placeholder="Ingredient"
                                 id="form.ingredient"
-                                onChange={(e) => {
-                                  const t = tempItem;  
-                                  t.Item = e.target.value;
-                                  setTempItem(t);
-                                  }}
                             />
                         </Col>
                         <Col>
-                            <Form.Control type="number" placeholder={0} id="form.amount" min={0} 
-                            onChange={(e) => {
-                                  const t = tempItem;  
-                                  t.Amount = e.target.value;
-                                  setTempItem(t)}}/>
+                            <Form.Control 
+                                type="number" 
+                                placeholder={0} 
+                                id="form.amount" 
+                                min={0} 
+                            />
                         </Col>
                         <Col>
                             <Form.Select aria-label="Unit"
-                            onChange={(e) => {
-                                  const t = tempItem;  
-                                  t.Unit = e.target.value;
-                                  setTempItem(t)}}>
+                                id="form.unit">
                                 <option value={"pieces"}>pieces</option>
                                 <option value={"g"}>g</option>
                                 <option value={"ml"}>ml</option>
                                 <option value={"tbs"}>tbs</option>
-                                <option value={"tsp"}>tsp</option>
-                                
-                               
+                                <option value={"tsp"}>tsp</option>                               
                             </Form.Select>
                         </Col>
                         <Col>
                             <Button className="btn btn-success" 
-                            onClick={(e) => addHandler(e, ingredients, setIngredients, tempItem, setTempItem)}>Add</Button>
+                            onClick={(e) => addHandler(e, ingredients, setIngredients)}>Add</Button>
                         </Col>
                     </Row>
                     <div>
@@ -178,17 +169,21 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
 }
 
 
-function addHandler(e, ingredients, setIngredients, tempItem, setTempItem){
-  var temp = ingredients;
-  temp[tempItem.Item] = {amount : tempItem.Amount, unit:tempItem.Unit};
-  setIngredients(temp);
-  setTempItem({"Item": "" , "Amount": "", "Unit": "g"});
+function addHandler(e, ingredients, setIngredients){
+  var temp = ingredients; //get ingredient list
+  temp[document.getElementById("form.ingredient").value] = 
+  {amount : document.getElementById("form.amount").value, unit : document.getElementById("form.unit").value}; //add ingredient to list.
+  setIngredients(temp); //update ingredient list
+
 
 {/*TODO: Clear ingredient inputs - They need to be reset and show placeholder. */}
 document.getElementById("form.ingredient").value = "";
 document.getElementById("form.amount").value = "";
+document.getElementById("form.unit").reset();
 
-/*  const Ingredients = document.getElementById("Ingredient").value;
+/*  -- from main -- (Does not work!)
+
+const Ingredients = document.getElementById("Ingredient").value;
     const Amount = document.getElementById("Amount").value;
     const Unit = document.getElementById("Unit").value;
     ingredients[Ingredients] = {amount: {Amount}, unit: {Unit}};
