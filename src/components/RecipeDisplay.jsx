@@ -4,10 +4,8 @@ import { useEffect } from 'react';
 
 export default function RecipeDisplay({Recipe}) {
 
-    {/*TODO: When Recipe changes (selectedRecipe), the states dont reset! This needs to happen! The Entire RecipeDisplay needs to reset.. */}
-
     useEffect(() => {
-        // Update the document title using the browser API
+        // Update the relevant states when new recipe selected
         setIngredientList(Object.keys(Recipe.ingredients));
         setPortions(Recipe.portions);
         setDispIng(Recipe.getIngredients(portions));
