@@ -125,7 +125,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                     />
                     <Form.Control.Feedback type="invalid"> Please enter Recipe instructions! </Form.Control.Feedback>
                 </Form.Group>
-				<Button variant="primary" type="submit" onClick={e => handleSubmit(e)}>
+				<Button variant="primary" type="submit" >
 					Submit
 				</Button>
             </Form>
@@ -164,15 +164,15 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
   }
 }
 
-
 function addHandler(e, ingredients, setIngredients){
-  var temp = ingredients; //get ingredient list
-  temp[document.getElementById("form.ingredient").value] = {amount : document.getElementById("form.amount").value, unit : document.getElementById("form.unit").value}; //add ingredient to list.
-  setIngredients(temp); //update ingredient list - this should re-render the list
+    const temp = ingredients;
+    const ing = document.getElementById("form.ingredient").value;
+    const amo = document.getElementById("form.amount").value;
+    const uni = document.getElementById("form.unit").value;
+    temp[ing] = {amount : amo, unit:uni};
+    setIngredients(temp);
 
-
-{/*TODO: Clear ingredient inputs */}
-document.getElementById("form.ingredient").value = "";
-document.getElementById("form.amount").value = "";
-document.getElementById("form.unit").value ="g"
+    document.getElementById("form.ingredient").value = "";
+    document.getElementById("form.amount").value = "";
+    document.getElementById("form.unit").value ="g"
 }
