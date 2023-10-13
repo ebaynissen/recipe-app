@@ -12,7 +12,8 @@ export class Recipe {
         steps = ["Missing Steps"], 
         unitUS = false,
         portions = 0,
-        tags = {}
+        tags = {},
+        image = {}
     ) {
         this.name = name;
         this.author = author;
@@ -23,6 +24,12 @@ export class Recipe {
         this.unitUS = unitUS;
         this.portions = portions;
         this.tags = tags;
+
+        if(image!= null){
+        this.image = image; //Se till att det faktisk blir korrekt bild fil etc.
+        }else{
+        /* lägg in placeholder image */
+        }
     }
 
     getIngredients(multiplier = 1, unitUS = false) {
