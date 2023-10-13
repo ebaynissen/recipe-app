@@ -64,7 +64,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                             <Form.Control
                                 type="text"
                                 placeholder="Ingredient"
-                                id="ingredient"
+                                id="form.ingredient"
                                 onChange={(e) => {
                                   const t = tempItem;  
                                   t.Item = e.target.value;
@@ -73,7 +73,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                             />
                         </Col>
                         <Col>
-                            <Form.Control type="number" placeholder={0} id="amount" min={0} 
+                            <Form.Control type="number" placeholder={0} id="form.amount" min={0} 
                             onChange={(e) => {
                                   const t = tempItem;  
                                   t.Amount = e.target.value;
@@ -182,9 +182,9 @@ function addHandler(e, ingredients, setIngredients, tempItem, setTempItem){
   var temp = ingredients;
   temp[tempItem.Item] = {amount : tempItem.Amount, unit:tempItem.Unit};
   setIngredients(temp);
-  setTempItem({"Item": tempItem.Item , "Amount": tempItem.Amount, "Unit": tempItem.Unit});
-  //tempItem should be cleared in combination of clearing the form so they match... 
-{/*TODO: Clear ingredient inputs?? How to get access to those form.group items?? */}
-document.getElementById("ingredient").value = "";
-document.getElementById("amount").value = "";
+  setTempItem({"Item": "" , "Amount": "", "Unit": "g"});
+
+{/*TODO: Clear ingredient inputs - They need to be reset and show placeholder. */}
+document.getElementById("form.ingredient").value = "";
+document.getElementById("form.amount").value = "";
 }
