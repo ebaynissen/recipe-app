@@ -59,16 +59,13 @@ export default function RecipeDisplay({Recipe}) {
             <Col>
                 <h3>Ingredients</h3>
                 <ul>   
-                {/*TODO: Ingredients dont update correctly!!! When changing selectedRecipe, the dispIng state doesnt reset? */}
-                    {ingredient_list.map((ing) => 
-                    <li key={ing}>{`${ing} - ${dispIng[ing].amount} ${dispIng[ing].unit}`}</li>)}
+                    {ingredient_list.map((ing) => <li key={ing}>{`${ing} - ${dispIng[ing].amount} ${dispIng[ing].unit}`}</li>)}
                 </ul>
             </Col>
             <Col>
                 <h3>Instructions </h3>
                 <ol>
-                    {Recipe.steps}
-                    {/*Recipe.steps.map((step) => <li key={step}>{step}</li>)*/}
+                    {Recipe.steps.map((step) => <li key={step}>{step}</li>) ?? "No instructions"}
                 </ol>
              </Col>
                 

@@ -1,4 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/App.css';
+
 import Navigation from './components/Navigation';
 import { Container, Row, Col } from 'react-bootstrap';
 import DisplayCard from './components/DisplayCard';
@@ -17,7 +19,7 @@ function App() {
   }
 
   return (
-    <Container fluid className='min-vh-100 m-0 p-0'>
+    <Container fluid className='verycoolbackground min-vh-100 m-0 p-0'>
       <Row> 
         <Col><DisplayCard content={<Navigation recipes={recipes} searched={setSelectedRecipe}/>}/></Col>
       </Row>
