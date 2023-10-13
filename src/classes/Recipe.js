@@ -21,7 +21,7 @@ export class Recipe {
         this.steps = steps;
         this.unitUS = unitUS;
         this.portions = portions;
-        this.id = Recipe.id++;
+        this.id = Recipe.id++; //Custom id might be useful.
     }
     
 

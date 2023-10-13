@@ -1,12 +1,20 @@
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 export default function RecipeDisplay({Recipe}) {
 
     {/*TODO: When Recipe changes (selectedRecipe), the states dont reset! This needs to happen! The Entire RecipeDisplay needs to reset.. */}
 
+    useEffect(() => {
+        // Update the document title using the browser API
+        setIngredientList(Object.keys(Recipe.ingredients));
+        setPortions(Recipe.portions);
+        setDispIng(Recipe.getIngredients(portions));
+      }, [Recipe]);
+
     const [unitUS, setUnitUS] = useState(Recipe.unitUS); // boolean state based on switch for which unit shown.
-    const ingredient_list = Object.keys(Recipe.ingredients);
+    const [ingredient_list, setIngredientList] = useState(Object.keys(Recipe.ingredients));
     const [portions, setPortions] = useState(Recipe.portions);
     const [dispIng, setDispIng] = useState(Recipe.getIngredients(portions));
 
