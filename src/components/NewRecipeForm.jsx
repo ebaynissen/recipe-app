@@ -3,11 +3,8 @@ import CloseButton from 'react-bootstrap/CloseButton';
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Recipe } from "../classes/Recipe";
-import App from "../App";
-
 
 export default function NewRecipeForm({addToCatalogue}) {
-    
     const [ingredients, setIngredients] = useState({});
     const [unitUS, setUnitUS] = useState(false);
     const [validated, setValidated] = useState(false);
@@ -99,8 +96,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                             </Form.Select>
                         </Col>
                         <Col>
-                            <Button className="btn btn-success" 
-                            onClick={() => addHandler(ingredients, setIngredients, tempItem, setTempItem)}>
+                            <Button className="btn btn-success" onClick={() => addHandler(ingredients, setIngredients, tempItem, setTempItem)}>
                             Add
                             </Button>
                         </Col>
@@ -167,28 +163,26 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
   const form = e.currentTarget;
 
   if (form.checkValidity() === false) {}
-  else{
+  else {
+        /*Could be done using id. This might be neater.*/
+        const newRec = new Recipe(form[0].value, //time
+            form[1].value, //author
+            ingredients, 
+            form[7].value, //time
+            form[8].value, //description
+            form[9].value, //steps
+            unitUS,        //unitType
+            form[2].value  //portions
+        );
 
-    /*Could be done using id. This might be neater.*/
-
-  const newRec = new Recipe(form[0].value, //time
-    form[1].value, //author
-    ingredients, 
-    form[7].value, //time
-    form[8].value, //description
-    form[9].value,  //steps
-    unitUS, //unitType
-    form[2].value //portions
-    );
-
-  addToCatalogue(newRec)
-  /* Reset States and form*/
-    setIngredients({});
-    setUnitUS(false);
-    setValidated(false);
-    e.target.reset();
-    e.target.classList.remove("was-validated");
-  }
+        addToCatalogue(newRec)
+        /* Reset States and form*/
+        setIngredients({});
+        setUnitUS(false);
+        setValidated(false);
+        e.target.reset();
+        e.target.classList.remove("was-validated");
+    }
 }
 
 function addHandler(ingredients, setIngredients, tempItem, setTempItem){
@@ -199,13 +193,12 @@ function addHandler(ingredients, setIngredients, tempItem, setTempItem){
     document.getElementById("form.ingredient").value = "";
     document.getElementById("form.amount").value = "";
     document.getElementById("form.unit").value ="g";
-
 }
 
 function removeHandler(ingredients, setIngredients, ing) {
 
 const temp = Object.fromEntries(Object.entries(ingredients).filter(([key, val]) => key!==ing));
-setIngredients(temp);
+    setIngredients(temp);
 }
 
 

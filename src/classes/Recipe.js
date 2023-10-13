@@ -1,6 +1,7 @@
-export class Recipe {
+import { v4 as uuid } from "uuid";
 
-    static id = 0;
+export class Recipe {
+    id = uuid();
 
     constructor(
         name = "Missing title", 
@@ -8,10 +9,10 @@ export class Recipe {
         ingredients = {}, 
         time = "0", 
         description = "Missing description", 
-        steps = "Missing Steps", 
+        steps = ["Missing Steps"], 
         unitUS = false,
-        portions = 2
-        
+        portions = 0,
+        tags = {}
     ) {
         this.name = name;
         this.author = author;
@@ -21,9 +22,8 @@ export class Recipe {
         this.steps = steps;
         this.unitUS = unitUS;
         this.portions = portions;
-        this.id = Recipe.id++; //Custom id might be useful.
+        this.tags = tags;
     }
-    
 
     getIngredients(multiplier = 1, unitUS = false) {
         let ingredients = {};

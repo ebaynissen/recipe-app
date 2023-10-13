@@ -1,4 +1,4 @@
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -26,8 +26,6 @@ export default function RecipeDisplay({Recipe}) {
         let newUnitUS = !unitUS
         setUnitUS(newUnitUS);
         setDispIng(Recipe.getIngredients(portions, newUnitUS))
-
-
     }
 
     return (
@@ -36,22 +34,14 @@ export default function RecipeDisplay({Recipe}) {
             <Col>
                 <h1>{Recipe.name}</h1>
             </Col>
-            <Col> {/* Empty column for spacing*/}    </Col>
+            <Col> {/* Empty column for spacing*/} </Col>
             <Col>
                 <div className="form-check form-switch">
                 <Form>
                     <div className='form-group '>
-                    <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" 
-                    onChange={changeUnitUS} checked= {unitUS}/>
+                    <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={changeUnitUS} checked= {unitUS}/>
                     <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Switch to US units</label>
-                    <Form.Control 
-                                type="number"
-                                id="portionSelect" 
-                                min={1} 
-                                onChange={changeAmounts}
-                                value={portions}
-                            /> 
-                    
+                    <Form.Control type="number"id="portionSelect" min={1} onChange={changeAmounts}value={portions}/>              
                     <Form.Label>Portions</Form.Label>
                     </div>      
                 </Form>
@@ -69,16 +59,13 @@ export default function RecipeDisplay({Recipe}) {
             <Col>
                 <h3>Ingredients</h3>
                 <ul>   
-                {/*TODO: Round units */}
-                    {ingredient_list.map((ing) => 
-                    <li key={ing}>{`${ing} - ${dispIng[ing].amount} ${dispIng[ing].unit}`}</li>)}
-                    </ul>
+                    {ingredient_list.map((ing) => <li key={ing}>{`${ing} - ${dispIng[ing].amount} ${dispIng[ing].unit}`}</li>)}
+                </ul>
             </Col>
             <Col>
                 <h3>Instructions </h3>
                 <ol>
-                    {Recipe.steps}
-                    {/*Recipe.steps.map((step) => <li key={step}>{step}</li>)*/}
+                    {Recipe.steps.map((step) => <li key={step}>{step}</li>) ?? "No instructions"}
                 </ol>
              </Col>
                 
