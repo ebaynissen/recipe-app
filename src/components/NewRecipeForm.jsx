@@ -12,7 +12,6 @@ export default function NewRecipeForm({addToCatalogue}) {
     const [unitUS, setUnitUS] = useState(false);
     const [validated, setValidated] = useState(false);
     const [tempItem, setTempItem] = useState({"Item": "Ingredient" , "Amount": 0, "Unit": "pieces"});
-  /*TODO: Add a (x) button at the ingredients to remove? */
 
     return (
         <Container>
