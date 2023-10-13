@@ -146,6 +146,12 @@ export default function NewRecipeForm({addToCatalogue}) {
                     />
                     <Form.Control.Feedback type="invalid"> Please enter Recipe instructions! </Form.Control.Feedback>
                 </Form.Group>
+
+                <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Label>Upload a picture for your recipe!</Form.Label>
+                    <Form.Control type="file" id="form.picture"/>
+                </Form.Group>
+
 				<Button variant="primary" type="submit" >
 					Submit
 				</Button>

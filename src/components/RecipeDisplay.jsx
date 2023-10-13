@@ -31,7 +31,7 @@ export default function RecipeDisplay({Recipe}) {
     }
 
     return (
-    <Container>
+    <Container className='bg-light'>
         <Row>
             <Col>
                 <h1>{Recipe.name}</h1>
@@ -69,7 +69,7 @@ export default function RecipeDisplay({Recipe}) {
             <Col>
                 <h3>Ingredients</h3>
                 <ul>   
-                {/*TODO: Ingredients dont update correctly!!! When changing selectedRecipe, the dispIng state doesnt reset? */}
+                {/*TODO: Round units */}
                     {ingredient_list.map((ing) => 
                     <li key={ing}>{`${ing} - ${dispIng[ing].amount} ${dispIng[ing].unit}`}</li>)}
                     </ul>

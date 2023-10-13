@@ -5,6 +5,7 @@ export default function Navigation({recipes, searched}) {
         let search = document.getElementById("search").value;
         if(recipes.map(recipe => recipe.name).includes(search)) {
           searched(recipes.filter(recipe => recipe.name === search)[0]);
+          /*TODO: Change that search shows list of relevant recipes to choose from. Re-render card with recipe list... */
         }
     }
 
