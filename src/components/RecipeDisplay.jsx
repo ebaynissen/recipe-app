@@ -43,14 +43,14 @@ export default function RecipeDisplay({Recipe}) {
                     <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" 
                     onChange={changeUnitUS} checked= {unitUS}/>
                     <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Switch to US units</label>
-
-                    <select className="form-control" id="portionSelect" onChange={changeAmounts} value={portions}>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
+                    <Form.Control 
+                                type="number"
+                                id="portionSelect" 
+                                min={1} 
+                                onChange={changeAmounts}
+                                value={portions}
+                            /> 
+                    
                     <Form.Label>Portions</Form.Label>
                     </div>      
                 </Form>
@@ -70,7 +70,7 @@ export default function RecipeDisplay({Recipe}) {
                 <ul>   
                 {/*TODO: Ingredients dont update correctly!!! When changing selectedRecipe, the dispIng state doesnt reset? */}
                     {ingredient_list.map((ing) => 
-                    <li key={ing}>{`${ing} - ${dispIng[ing].amount} ${dispIng[ing].unitUS}`}</li>)}
+                    <li key={ing}>{`${ing} - ${dispIng[ing].amount} ${dispIng[ing].unit}`}</li>)}
                     </ul>
             </Col>
             <Col>
