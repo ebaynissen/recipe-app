@@ -7,7 +7,7 @@ export default function RecipeList({recipes, setView}) {
 
         {recipes.map((rec) => 
         <li className='p-1' key={rec.id}>
-            <button type='button' class="btn btn-info" key={"Button"+rec} onClick={() => setView(rec)}>
+            <button type='button' className="btn btn-info" key={"Button"+rec} onClick={() => setView(rec)}>
                 <b>{rec.name}</b> <i>by {rec.author}</i>
             </button>
         </li>)}

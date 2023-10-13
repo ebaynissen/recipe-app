@@ -4,8 +4,6 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Recipe } from "../classes/Recipe";
 
-
-
 export default function NewRecipeForm({addToCatalogue}) {
     const [ingredients, setIngredients] = useState({});
     const [unitUS, setUnitUS] = useState(false);
