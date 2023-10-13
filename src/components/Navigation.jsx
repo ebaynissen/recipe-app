@@ -14,7 +14,7 @@ export default function Navigation({recipes, searched}) {
         if (res.length === 1) searched(res[0]);
         else if(res.length > 1) alert("Multiple recipes found, please be more specific");
     }
-    /*TODO: Change that search shows list of relevant recipes to choose from. Re-render card with recipe list */
+    /*TODO: Change that search shows list of relevant recipes to choose from. Re-render card with recipe list. Use RecipeList class */
 
     return (
       <Navbar expand="lg">
