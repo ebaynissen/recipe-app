@@ -6,7 +6,7 @@ export default function RecipeDisplay({Recipe}) {
 
     useEffect(() => {
         // Update the relevant states when new recipe selected
-        setUnitUS()
+        setUnitUS(Recipe.unitUS);
         setIngredientList(Object.keys(Recipe.ingredients));
         setPortions(Recipe.portions);
         setDispIng(Recipe.ingredients);
@@ -83,9 +83,9 @@ export default function RecipeDisplay({Recipe}) {
                 
         </Row>
         <Row>
-        <h7>Tags: </h7>
+        <small>Tags: </small>
                 <ol>
-                    {Object.keys(Recipe.tags).map((tag) => <small key={tag}>{tag}, </small>) ?? "No tags"}
+                    {Object.keys(Recipe.tags).filter((tag) => Recipe.tags[tag]).map((tag) => <small key={tag}>{tag}, </small>) ?? "No tags"}
                 </ol>
         </Row>
     </Container>
