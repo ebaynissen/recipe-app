@@ -10,12 +10,14 @@ export default function RecipeDisplay({Recipe}) {
         setIngredientList(Object.keys(Recipe.ingredients));
         setPortions(Recipe.portions);
         setDispIng(Recipe.ingredients);
+        setImage(Recipe.image);
       }, [Recipe]);
 
     const [unitUS, setUnitUS] = useState(Recipe.unitUS); // boolean state based on switch for which unit shown.
     const [ingredient_list, setIngredientList] = useState(Object.keys(Recipe.ingredients));
     const [portions, setPortions] = useState(Recipe.portions);
     const [dispIng, setDispIng] = useState(Recipe.ingredients);
+    const [image, setImage] = useState(Recipe.image)
 
     function changeAmounts(e){
         let newPortions = e.target.value;
@@ -35,6 +37,7 @@ export default function RecipeDisplay({Recipe}) {
                 <h1>{Recipe.name}</h1>
             </Col>
             <Col> {/* Empty column for spacing*/} </Col>
+            
             <Col>
                 <div className="form-check form-switch">
                 <Form>
@@ -47,6 +50,15 @@ export default function RecipeDisplay({Recipe}) {
                 </Form>
                 </div>
             </Col>
+            {image && (
+                <div>
+                    <img
+                    alt="not found"
+                    width={"400px"}
+                    src={URL.createObjectURL(image)}
+                    />
+                </div>
+            )}
         </Row>
         <Row>
             <Col>

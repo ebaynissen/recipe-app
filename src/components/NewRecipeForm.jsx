@@ -9,6 +9,7 @@ export default function NewRecipeForm({addToCatalogue}) {
     const [unitUS, setUnitUS] = useState(false);
     const [validated, setValidated] = useState(false);
     const [tempItem, setTempItem] = useState({"Item": "Ingredient" , "Amount": 0, "Unit": "pieces"});
+    const [image, setImage] = useState(null);
 
     return (
         <Container>
@@ -26,7 +27,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                     Switch to US units</label>
             </div>
 	
-            <Form id="form" noValidate validated={validated} onSubmit={(e) => handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated)}>
+            <Form id="form" noValidate validated={validated} onSubmit={(e) => handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated, image)}>
                 <Form.Group >
                     <Form.Label>Recipe Name</Form.Label>
                     <Form.Control required type="text" placeholder="Enter recipe name" id="form.name"/>
@@ -142,13 +143,23 @@ export default function NewRecipeForm({addToCatalogue}) {
                     />
                     <Form.Control.Feedback type="invalid"> Please enter Recipe instructions! </Form.Control.Feedback>
                 </Form.Group>
-
-                <Form.Group controlId="formFile" className="mb-3">
+                {image && (
+                    <div>
+                        <img
+                        alt="not found"
+                        width={"200px"}
+                        src={URL.createObjectURL(image)}
+                        />
+                    </div>
+                 )}
+                <Form.Group className="mb-3">
                     <Form.Label>Upload a picture for your recipe!</Form.Label>
-                    <Form.Control type="file" id="form.picture"/>
+                    <Form.Control type="file" id="form.picture" onChange={(e)=> {
+                        console.log(e.target.files[0]);
+                        setImage(e.target.files[0]);}}/>
                 </Form.Group>
 
-				<Button variant="primary" type="submit" >
+				<Button variant="primary" type="submit">
 					Submit
 				</Button>
             </Form>
@@ -156,11 +167,12 @@ export default function NewRecipeForm({addToCatalogue}) {
     );
 }
 
-function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated){
+function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated, image){
   e.preventDefault();
   e.stopPropagation();
   e.target.classList.add("was-validated");
   const form = e.currentTarget;
+  console.log(image);
 
   if (form.checkValidity() === false) {}
   else {
@@ -170,9 +182,11 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
             ingredients, 
             form[7].value, //time
             form[8].value, //description
-            form[9].value, //steps
+            [form[9].value], //steps
             unitUS,        //unitType
-            form[2].value  //portions
+            form[2].value,  //portions
+            {},
+            image
         );
 
         addToCatalogue(newRec)
