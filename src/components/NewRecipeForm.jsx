@@ -10,6 +10,36 @@ export default function NewRecipeForm({addToCatalogue}) {
     const [validated, setValidated] = useState(false);
     const [tempItem, setTempItem] = useState({"Item": "Ingredient" , "Amount": 0, "Unit": "pieces"});
     const [image, setImage] = useState(null);
+    const [tags, setTags] = useState({"Gluten-free" : false, "Lactose-free": false, "Vegetarian": false, "Vegan": false, "Savoury" : false, "Sweet/Dessert": false});
+
+
+    function onCheck(e){
+        setTags({
+            ...tags, // Copy the old fields
+            [e.target.name] : !(tags[e.target.name]) // But override this one
+          });
+}
+
+function TagCreator(){
+
+    let tagBoxes = Object.keys(tags).map((item) => 
+    <div key={item} className='col' >
+    <input id={item} type="checkbox" name={item} checked = {(tags[item])}
+    onChange={(e) => onCheck(e)}/>
+    <label  htmlFor={item} >
+    {"  " + item}</label>
+    </div>);
+
+  return(
+    <div>
+    <Form.Label>Tags:</Form.Label>
+        <div className="container row row-cols-6">
+            {tagBoxes}   
+        </div>
+    </div>
+    )
+  }
+
 
     return (
         <Container>
@@ -158,6 +188,10 @@ export default function NewRecipeForm({addToCatalogue}) {
                         console.log(e.target.files[0]);
                         setImage(e.target.files[0]);}}/>
                 </Form.Group>
+                <Form.Group className="mb-3">
+                        <TagCreator/>
+                </Form.Group>
+
 
 				<Button variant="primary" type="submit">
 					Submit
@@ -166,6 +200,7 @@ export default function NewRecipeForm({addToCatalogue}) {
         </Container>
     );
 }
+
 
 function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated, image){
   e.preventDefault();
@@ -185,7 +220,7 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
             [form[9].value], //steps
             unitUS,        //unitType
             form[2].value,  //portions
-            {},
+            tags,
             image
         );
 

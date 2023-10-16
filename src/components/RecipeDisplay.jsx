@@ -82,6 +82,12 @@ export default function RecipeDisplay({Recipe}) {
              </Col>
                 
         </Row>
+        <Row>
+        <h7>Tags: </h7>
+                <ol>
+                    {Object.keys(Recipe.tags).map((tag) => <small key={tag}>{tag}, </small>) ?? "No tags"}
+                </ol>
+        </Row>
     </Container>
     )
 }

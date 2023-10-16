@@ -37,11 +37,11 @@ function App() {
     return(
       <div>
       <Row> 
-        <Col xs={8}>
+        <Col xs={7}>
           <DisplayCard content={<RecipeList recipes={recipes} setView={setSelectedRecipe}/>}/>
         </Col>
         <Col><DisplayCard content={"Saved Recipes"}/></Col>
-        <Col><DisplayCard content={"Unit Calculator"}/></Col>
+        <Col xs={3}><DisplayCard content={"Unit Calculator"}/></Col>
        </Row>
         <Row>  
         <Col>               
