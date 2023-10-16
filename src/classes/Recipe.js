@@ -24,7 +24,7 @@ export class Recipe {
         this.unitUS = unitUS;
         this.portions = portions;
         this.tags = tags;
-        this.image = image;
+        this.image = image; 
     }
 
     getIngredients(multiplier = 1, unitUS = false) {

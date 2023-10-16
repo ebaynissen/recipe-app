@@ -52,7 +52,7 @@ export default function RecipeDisplay({Recipe}) {
             </Col>
             {image && (
                 <div>
-                    <img
+                    <img 
                     alt="not found"
                     width={"400px"}
                     src={URL.createObjectURL(image)}
