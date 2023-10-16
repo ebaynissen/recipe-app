@@ -196,6 +196,7 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
         setValidated(false);
         e.target.reset();
         e.target.classList.remove("was-validated");
+        window.location.href = "http://localhost:4000/" //Return to homepage
     }
 }
 

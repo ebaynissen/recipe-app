@@ -16,6 +16,7 @@ export default function Navigation({recipes, searched}) {
     }
     /*TODO: Change that search shows list of relevant recipes to choose from. Re-render card with recipe list. Use RecipeList class */
 
+    
     return (
       <Navbar expand="lg">
       <Container fluid>
@@ -23,10 +24,12 @@ export default function Navigation({recipes, searched}) {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
-            <Nav.Link href="#action1">Home</Nav.Link>
-            <Nav.Link href="#action2">Popular</Nav.Link>
+            <Nav.Link href="home">Home</Nav.Link>
+            <Nav.Link href="popular">Popular</Nav.Link>
             <Nav.Link href="#" disabled>Saved</Nav.Link>
+            <Button variant='outline-success' onClick={handleNew}> + Create New Recipe</Button>
           </Nav>
+          
           <Form className="d-flex">
             <Form.Control
               type="search"
@@ -36,11 +39,16 @@ export default function Navigation({recipes, searched}) {
               id="search"
             />
             <Button variant="outline-success" onClick={handleSearch}>Search</Button>
+            
           </Form>
         </Navbar.Collapse>
       </Container>
     </Navbar>
     )
+}
+
+function handleNew(){
+  window.location.href = ("http://localhost:4000/NewRecipe");
 }
 
 export const toCapitalize = (str) => {
