@@ -1,6 +1,13 @@
 import { Recipe } from "./Recipe.js";
 
 export const cookbook = [
+  new Recipe(
+    "Kladdkaka", "Lilly",
+    {"Eggs": { amount:2, unit:"pieces"}, "Kakao" : {amount:3, unit:"tbs"}, "Butter" : {amount:100, unit:"grams"}, "Flour" : {amount: 60, unit:"grams"}, "Sugar" : {amount: 225, unit:"grams"}, "Vanilla-sugar" : {amount: 1, unit:"tsp"}}, 
+    "30", 
+    "Klassiskt kladdig kladdkaka", 
+    ["Preheat oven to 175°C"," Melt the butter in a small pot.", " Mix the sugar and eggs into the butter. Mix well!", " Mix in the remaining ingredients."," Pour the mixture into a buttered baking dish and bake for 10-15min."], false, 6, {"Sweet/dessert": true, "Savoury": false}
+  ),
     new Recipe(
       "Carbonara",  "Ebbe",
       {"Pasta" : {amount:400, unit:"grams"}, "Eggs": { amount:2, unit:"pieces"}, "Bacon" : {amount:100, unit:"grams"}, "Cheese" : {amount:100 , unit:"grams"}}, 
