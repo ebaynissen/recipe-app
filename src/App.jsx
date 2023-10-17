@@ -18,6 +18,23 @@ function App() {
     setRecipes([newRecipe, ...recipes])
   }
 
+  function ShowManyRecipes(){
+    const show = recipes.map((rec) => 
+      <Row key={rec}>
+      <DisplayCard content={<RecipeDisplay Recipe={rec}/> } />
+      </Row>
+    
+    );
+
+    return(
+      <div>
+      {show}
+      </div>
+    )
+
+    
+  }
+
   function CardSelection(){
 
     if (window.location.href == "http://localhost:4000/NewRecipe"){
@@ -26,6 +43,19 @@ function App() {
         <Row>  
         <Col>               
         <DisplayCard content={<NewRecipeForm addToCatalogue={addToCatalogue} />}/> 
+        </Col>
+        <Col xs={3}><DisplayCard content={"Unit Calculator"}/></Col>   
+      </Row>
+      </div>
+        
+      )
+    }
+    if (window.location.href == "http://localhost:4000/popular"){
+      return(
+        <div>
+        <Row>  
+        <Col>               
+        <DisplayCard content={<ShowManyRecipes/>}/>
         </Col>
         <Col xs={3}><DisplayCard content={"Unit Calculator"}/></Col>   
       </Row>
