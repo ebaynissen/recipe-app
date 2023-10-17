@@ -11,17 +11,35 @@ import { cookbook } from './classes/CookBook';
 import { useState } from 'react';
 
 function App() {
-  const [recipes, setRecipes] = useState(cookbook); 
+  const [recipes, setRecipes] = useState( () => {
+  if(localStorage.length == 0){
+    cookbook.forEach((rec) => {localStorage.setItem("Cookbook", JSON.stringify(rec))});
+    return cookbook}
+  else{
+    
+    const book = JSON.parse(localStorage.getItem("Cookbook"));
+    return book;
+    }
+  }); 
   const [selectedRecipe, setSelectedRecipe] = useState(recipes[0]);
 
   function addToCatalogue(newRecipe){
-    setRecipes([newRecipe, ...recipes])
+    let temp = [newRecipe, ...recipes];
+    setRecipes(temp)
+    localStorage.setItem("Cookbook", JSON.stringify(temp));
+  }
+
+  function removeFromCatalogue(recipe){
+    let temp = (recipes).filter((a) => a.id !== recipe.id);
+    setRecipes(temp)
+    localStorage.setItem("Cookbook", JSON.stringify(temp));
+    setSelectedRecipe(recipes[0])
   }
 
   function ShowManyRecipes(){
     const show = recipes.map((rec) => 
       <Row key={rec}>
-      <DisplayCard content={<RecipeDisplay Recipe={rec}/> } />
+      <DisplayCard content={<RecipeDisplay Recipe={rec} removeFromCatalogue={removeFromCatalogue}/> } />
       </Row>
     
     );
@@ -75,7 +93,7 @@ function App() {
        </Row>
         <Row>  
         <Col>               
-          <DisplayCard content={<RecipeDisplay Recipe={selectedRecipe}/>}/>
+          <DisplayCard content={<RecipeDisplay Recipe={selectedRecipe} removeFromCatalogue={removeFromCatalogue}/>}/>
         </Col>   
       </Row>
       </div>

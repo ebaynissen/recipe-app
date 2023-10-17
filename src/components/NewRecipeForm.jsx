@@ -18,27 +18,26 @@ export default function NewRecipeForm({addToCatalogue}) {
             ...tags, // Copy the old fields
             [e.target.name] : !(tags[e.target.name]) // But override this one
           });
-}
+    }
 
-function TagCreator(){
+    function TagCreator(){
+        let tagBoxes = Object.keys(tags).map((item) => 
+        <div key={item} className='col' >
+        <input id={item} type="checkbox" name={item} checked = {(tags[item])}
+        onChange={(e) => onCheck(e)}/>
+        <label  htmlFor={item} >
+        {"  " + item}</label>
+        </div>);
 
-    let tagBoxes = Object.keys(tags).map((item) => 
-    <div key={item} className='col' >
-    <input id={item} type="checkbox" name={item} checked = {(tags[item])}
-    onChange={(e) => onCheck(e)}/>
-    <label  htmlFor={item} >
-    {"  " + item}</label>
-    </div>);
-
-  return(
-    <div>
-    <Form.Label>Tags:</Form.Label>
-        <div className="container row row-cols-6">
-            {tagBoxes}   
-        </div>
-    </div>
-    )
-  }
+        return(
+            <div>
+            <Form.Label>Tags:</Form.Label>
+                <div className="container row row-cols-6">
+                {tagBoxes}   
+                </div>
+            </div>
+        )
+    }   
 
 
     return (
@@ -57,7 +56,7 @@ function TagCreator(){
                     Switch to US units</label>
             </div>
 	
-            <Form id="form" noValidate validated={validated} onSubmit={(e) => handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated, image)}>
+            <Form id="form" noValidate validated={validated} onSubmit={(e) => handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated, image, setImage, tags, setTags, setTempItem)}>
                 <Form.Group >
                     <Form.Label>Recipe Name</Form.Label>
                     <Form.Control required type="text" placeholder="Enter recipe name" id="form.name"/>
@@ -202,7 +201,7 @@ function TagCreator(){
 }
 
 
-function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated, image){
+function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated, image, setImage, tags, setTags, setTempItem){
   e.preventDefault();
   e.stopPropagation();
   e.target.classList.add("was-validated");
@@ -211,7 +210,16 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
 
   if (form.checkValidity() === false) {}
   else {
-        /*Could be done using id. This might be neater.*/
+
+    
+
+    const im = new ImageData(URL.createObjectURL(image));
+    
+    
+    
+    localStorage.setItem(image.name, image);
+    
+    
         const newRec = new Recipe(form[0].value, //time
             form[1].value, //author
             ingredients, 
@@ -221,7 +229,7 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
             unitUS,        //unitType
             form[2].value,  //portions
             tags,
-            URL.createObjectURL(image) //Save image src
+            image.name
         );
 
         addToCatalogue(newRec)

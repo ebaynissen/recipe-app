@@ -13,7 +13,7 @@ export class Recipe {
         unitUS = false,
         portions = 0,
         tags = {},
-        image = "./public/Images/MissingImage.jpeg" //If no image is selected use this placeholder
+        image = ("./public/Images/MissingImage.jpeg") //If no image is selected use this placeholder
     ) {
         this.name = name;
         this.author = author;
@@ -24,7 +24,8 @@ export class Recipe {
         this.unitUS = unitUS;
         this.portions = portions;
         this.tags = tags;
-        this.image = image; 
+        this.image = (image);
+    
     }
 
     getIngredients(multiplier = 1, unitUS = false) {
@@ -40,4 +41,6 @@ export class Recipe {
         }
         return ingredients;
     }
+
+    /*TODO: Create parse method to be able to use localstorage properly */
 }

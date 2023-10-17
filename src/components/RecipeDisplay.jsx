@@ -1,8 +1,8 @@
-import { Container, Row, Col, Form, Card} from 'react-bootstrap';
+import { Container, Row, Col, Form, Card, Button} from 'react-bootstrap';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export default function RecipeDisplay({Recipe}) {
+export default function RecipeDisplay({Recipe, removeFromCatalogue}) {
 
     useEffect(() => {
         // Update the relevant states when new recipe selected
@@ -17,7 +17,7 @@ export default function RecipeDisplay({Recipe}) {
     const [ingredient_list, setIngredientList] = useState(Object.keys(Recipe.ingredients));
     const [portions, setPortions] = useState(Recipe.portions);
     const [dispIng, setDispIng] = useState(Recipe.ingredients);
-    const [image, setImage] = useState(Recipe.image)
+    const [image, setImage] = useState(localStorage.getItem(Recipe.image))
 
     function changeAmounts(e){
         let newPortions = e.target.value;
@@ -29,15 +29,17 @@ export default function RecipeDisplay({Recipe}) {
         setUnitUS(newUnitUS);
         setDispIng(Recipe.getIngredients(portions, newUnitUS))
     }
-
+    const reader = new FileReader();
     return (
 
     <Card  className='bg-light'>
         <Card.Body>
         <Row>
             <Col>
-                <Card.Img style={{ width: '18rem' }} variant="top" src={image} alt="not found"
-                    width={"400px"}/>
+                <Card.Img style={{ width: '18rem' }} variant="top" 
+                src={image}
+                alt="not found"
+                width={"400px"}/>
             </Col>
         
             <Col>
@@ -87,7 +89,23 @@ export default function RecipeDisplay({Recipe}) {
                     {Object.keys(Recipe.tags).filter((tag) => Recipe.tags[tag]).map((tag) => <small key={tag}>{tag}, </small>) ?? "No tags"}
                 </ol>
         </Row>
+        <Row>
+        <Col>
+        <Button variant="outline-secondary" onClick={editHandler()}>
+                    Edit
+        </Button>
+        </Col>
+        <Col>
+        <Button variant="outline-secondary" 
+        onClick={() => removeFromCatalogue(Recipe)}>
+                    Delete Recipe
+        </Button>
+        </Col>
+        </Row>
         </Card.Body>
     </Card>
     )
+}
+function editHandler(){
+    //implement
 }
