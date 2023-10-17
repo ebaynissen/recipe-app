@@ -7,6 +7,7 @@ import DisplayCard from './components/DisplayCard';
 import RecipeDisplay from './components/RecipeDisplay';
 import NewRecipeForm from './components/NewRecipeForm';
 import RecipeList from './components/RecipeList';
+import OpenFoodFacts from './api/openfoodfacts';
 import { cookbook } from './classes/CookBook';
 import { useState } from 'react';
 
@@ -89,7 +90,7 @@ function App() {
           <DisplayCard content={<RecipeList recipes={recipes} setView={setSelectedRecipe}/>}/>
         </Col>
         <Col><DisplayCard content={"Saved Recipes"}/></Col>
-        <Col xs={3}><DisplayCard content={"Unit Calculator"}/></Col>
+        <Col xs={3}><DisplayCard content={<OpenFoodFacts />}/></Col>
        </Row>
         <Row>  
         <Col>               
