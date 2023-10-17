@@ -221,13 +221,16 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
             unitUS,        //unitType
             form[2].value,  //portions
             tags,
-            image
+            URL.createObjectURL(image) //Save image src
         );
 
         addToCatalogue(newRec)
         /* Reset States and form*/
         setIngredients({});
         setUnitUS(false);
+        setTempItem({"Item": "" , "Amount": "", "Unit": "g"});
+        setImage(null);
+        setTags({"Gluten-free" : false, "Lactose-free": false, "Vegetarian": false, "Vegan": false, "Savoury" : false, "Sweet/Dessert": false});
         setValidated(false);
         e.target.reset();
         e.target.classList.remove("was-validated");

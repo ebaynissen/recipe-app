@@ -13,7 +13,7 @@ export class Recipe {
         unitUS = false,
         portions = 0,
         tags = {},
-        image = null
+        image = "./public/MissingImage.jpeg" //If no image is selected use this placeholder
     ) {
         this.name = name;
         this.author = author;

@@ -1,4 +1,4 @@
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import { Container, Row, Col, Form, Card} from 'react-bootstrap';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -31,42 +31,42 @@ export default function RecipeDisplay({Recipe}) {
     }
 
     return (
-    <Container className='bg-light'>
+
+    <Card  className='bg-light'>
+        <Card.Body>
         <Row>
             <Col>
-                <h1>{Recipe.name}</h1>
+                <Card.Img style={{ width: '18rem' }} variant="top" src={image} alt="not found"
+                    width={"400px"}/>
             </Col>
-            <Col> {/* Empty column for spacing*/} </Col>
-            
+        
+            <Col>
+                <Row>
+                    <Card.Title><h1>{Recipe.name}</h1></Card.Title>
+                </Row>
+                <Row>
+                    <small>By: <i>{Recipe.author}</i> <div className="vr mx-2"></div>Time: {Recipe.time} Minutes <div className="vr mx-2"></div> Portions: {Recipe.portions}</small>
+                    <p>{Recipe.description}</p>
+                    <hr/>
+                 </Row>
+            </Col>
+            <Col> {/* Spacing */}</Col>
+
             <Col>
                 <div className="form-check form-switch">
                 <Form>
-                    <div className='form-group '>
+                <div className='form-group '>
                     <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={changeUnitUS} checked= {unitUS}/>
                     <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Switch to US units</label>
                     <Form.Control type="number"id="portionSelect" min={1} onChange={changeAmounts}value={portions}/>              
                     <Form.Label>Portions</Form.Label>
-                    </div>      
+                </div>      
                 </Form>
                 </div>
             </Col>
-            {image && (
-                <div>
-                    <img 
-                    alt="not found"
-                    width={"400px"}
-                    src={URL.createObjectURL(image)}
-                    />
-                </div>
-            )}
         </Row>
-        <Row>
-            <Col>
-                <small>By: <i>{Recipe.author}</i> <div className="vr mx-2"></div>Time: {Recipe.time} Minutes <div className="vr mx-2"></div> Portions: {Recipe.portions}</small>
-                <p>{Recipe.description}</p>
-                <hr/>
-            </Col>
-        </Row>
+        <hr/>
+
         <Row>       
             <Col>
                 <h3>Ingredients</h3>
@@ -79,15 +79,15 @@ export default function RecipeDisplay({Recipe}) {
                 <ol>
                     {Recipe.steps.map((step) => <li key={step}>{step}</li>) ?? "No instructions"}
                 </ol>
-             </Col>
-                
+             </Col>                
         </Row>
         <Row>
-        <small>Tags: </small>
+        <b><small>Tags: </small></b>
                 <ol>
                     {Object.keys(Recipe.tags).filter((tag) => Recipe.tags[tag]).map((tag) => <small key={tag}>{tag}, </small>) ?? "No tags"}
                 </ol>
         </Row>
-    </Container>
+        </Card.Body>
+    </Card>
     )
 }
