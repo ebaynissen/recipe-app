@@ -213,7 +213,7 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
 
     
 
-    const im = new ImageData(URL.createObjectURL(image));
+    //const im = new ImageData(URL.createObjectURL(image));
     
     
     

@@ -82,6 +82,4 @@ export class Recipe {
             }
             return rec;
     }
-
-    /*TODO: Create parse method to be able to use localstorage properly */
 }
