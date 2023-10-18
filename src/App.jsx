@@ -142,6 +142,7 @@ function App() {
         onClick={() => {
           localStorage.clear();
           setRecipes(cookbook);
+          localStorage.setItem("Cookbook", JSON.stringify(cookbook));
           setSelectedRecipe(cookbook[0]);}
           }
           > Reset Recipes </Button>
