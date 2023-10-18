@@ -14,9 +14,10 @@ import { useState } from 'react';
 function App() {
   const [recipes, setRecipes] = useState( () => {
   if(localStorage.length == 0){
-    cookbook.forEach((rec) => {localStorage.setItem("Cookbook", JSON.stringify(rec))});
-    return cookbook}
-  else{
+
+    localStorage.setItem("Cookbook", JSON.stringify(cookbook));
+    return cookbook
+  }else{
     
     const book = JSON.parse(localStorage.getItem("Cookbook"));
     return book;
