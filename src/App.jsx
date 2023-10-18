@@ -10,6 +10,7 @@ import RecipeList from './components/RecipeList';
 import OpenFoodFacts from './api/openfoodfacts';
 import { cookbook } from './classes/CookBook';
 import { useState } from 'react';
+import { Recipe } from './classes/Recipe';
 
 function App() {
   const [recipes, setRecipes] = useState( () => {
@@ -19,7 +20,7 @@ function App() {
     return cookbook
   }else{
     
-    const book = JSON.parse(localStorage.getItem("Cookbook"));
+    const book = Recipe.parse(localStorage.getItem("Cookbook"));
     return book;
     }
   }); 

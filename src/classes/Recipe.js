@@ -42,5 +42,46 @@ export class Recipe {
         return ingredients;
     }
 
+    static parse(str){
+        
+        const arr = JSON.parse(str);
+     
+        if(Array.isArray(arr)){ //turn string into object. If its a string in[] it will become an array object.
+             // console.log('THIS IS AN ARRAY!');
+            return arr.map(element => {
+                //console.log('iteration element: ' + JSON.stringify(element['ingredients']));
+                const rec = new Recipe();
+                rec.name = element['name'];
+                rec.author = element['author'];
+                rec.ingredients = element['ingredients'];
+                rec.time = element['time'];
+                rec.description = element['description'];
+                rec.steps = element['steps'];
+                rec.unitUS = element['unitUS'];
+                rec.portions = element['portions'];
+                rec.tags = element['tags'];
+                rec.image = element['image'];
+                rec.id = element.id;
+                return rec;
+              });        
+        }
+        if(typeof(str) == 'string'){
+            const element = JSON.parse(str);
+            const rec = new Recipe();
+                rec.name = element['name'];
+                rec.author = element['author'];
+                rec.ingredients = element['ingredients'];
+                rec.time = element['time'];
+                rec.description = element['description'];
+                rec.steps = element['steps'];
+                rec.unitUS = element['unitUS'];
+                rec.portions = element['portions'];
+                rec.tags = element['tags'];
+                rec.image = element['image'];
+                rec.id = element.id;
+            }
+            return newSalad;
+    }
+
     /*TODO: Create parse method to be able to use localstorage properly */
 }
