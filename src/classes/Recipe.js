@@ -80,7 +80,7 @@ export class Recipe {
                 rec.image = element['image'];
                 rec.id = element.id;
             }
-            return newSalad;
+            return rec;
     }
 
     /*TODO: Create parse method to be able to use localstorage properly */
