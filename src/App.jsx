@@ -7,7 +7,7 @@ import DisplayCard from './components/DisplayCard';
 import RecipeDisplay from './components/RecipeDisplay';
 import NewRecipeForm from './components/NewRecipeForm';
 import RecipeList from './components/RecipeList';
-import OpenFoodFacts from './api/openfoodfacts';
+import OpenFoodFacts from './api/OpenFoodFacts';
 import { cookbook } from './classes/CookBook';
 import { useState } from 'react';
 import { Recipe } from './classes/Recipe';
