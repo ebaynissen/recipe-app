@@ -13,6 +13,8 @@ import { useState } from 'react';
 import { Recipe } from './classes/Recipe';
 
 function App() {
+
+  const [page, setPage] = useState('home')
   const [recipes, setRecipes] = useState( () => {
   if(localStorage.length == 0){
 
@@ -58,7 +60,7 @@ function App() {
 
   function CardSelection(){
 
-    if (window.location.href == "http://localhost:4000/NewRecipe"){
+    if (page == "newRecipe"){
       return(
         <div>
         <Row>  
@@ -70,7 +72,7 @@ function App() {
         
       )
     }
-    if (window.location.href == "http://localhost:4000/popular"){
+    if (page == "popular"){
       return(
         <div>
         <Row>  
@@ -107,7 +109,7 @@ function App() {
   return (
     <Container fluid className='verycoolbackground min-vh-100 m-0 p-0'>
       <Row> 
-        <Col><DisplayCard content={<Navigation recipes={recipes} searched={setSelectedRecipe}/>}/></Col>
+        <Col><DisplayCard content={<Navigation recipes={recipes} searched={setSelectedRecipe} setPage={setPage}/>}/></Col>
       </Row>
         <CardSelection/>
       

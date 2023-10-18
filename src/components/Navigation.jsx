@@ -1,6 +1,6 @@
 import { Container, Nav, Navbar, Form, Button } from "react-bootstrap";
 
-export default function Navigation({ recipes, searched }) {
+export default function Navigation({ recipes, searched, setPage }) {
     function handleSearch() {
         let search = document.getElementById("search").value;
         let res =
@@ -28,15 +28,25 @@ export default function Navigation({ recipes, searched }) {
                     <Nav
                         className="me-auto my-2 my-lg-0"
                         style={{ maxHeight: "100px" }}
-                        navbarScroll
-                    >
-                        <Nav.Link href="home">Home</Nav.Link>
-                        <Nav.Link href="popular">Popular</Nav.Link>
-                        <Button variant="outline-success" onClick={handleNew}>
+                        navbarScroll>
+                        <Nav.Item>
+                            <Button variant="outline-secondary" onClick={() => {setPage('home')}}>
+                                Home 
+                            </Button>
+                        </Nav.Item>
+
+                        <Nav.Item>
+                            <Button variant="outline-secondary" onClick={() => {setPage('popular')}}>
+                                Popular 
+                            </Button>
+                        </Nav.Item>
+                        <Button variant="outline-success" onClick={() => {setPage('newRecipe')}}>
                             {" "}
                             + Create New Recipe
                         </Button>
+                        
                     </Nav>
+                    
 
                     <Form className="d-flex">
                         <Form.Control
@@ -59,9 +69,6 @@ export default function Navigation({ recipes, searched }) {
     );
 }
 
-function handleNew() {
-    window.location.href = "http://localhost:4000/NewRecipe";
-}
 
 export const toCapitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
