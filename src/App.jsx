@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/App.css';
 
 import Navigation from './components/Navigation';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import DisplayCard from './components/DisplayCard';
 import RecipeDisplay from './components/RecipeDisplay';
 import RecipePreview from './components/RecipePreview';
@@ -40,8 +40,11 @@ function App() {
     let temp = (recipes).filter((a) => a.id !== recipe.id);
     setRecipes(temp)
     localStorage.setItem("Cookbook", JSON.stringify(temp));
-    if (temp.length !== 0){
-    setSelectedRecipe(recipes[-1])}
+    if (temp.length > 1){
+    setSelectedRecipe(recipes[1])}
+    else if(temp.length == 1){
+      setSelectedRecipe(recipes[0])
+    }
     else{
       setSelectedRecipe(new Recipe("NO RECIPES FOUND"));
     }
@@ -133,7 +136,17 @@ function App() {
         <Col><DisplayCard content={<Navigation recipes={recipes} searched={setSelectedRecipe} setPage={setPage}/>}/></Col>
       </Row>
         <CardSelection/>
-      
+      <Row>
+      <DisplayCard content={
+        <Button className="mr-0" variant="danger" 
+        onClick={() => {
+          localStorage.clear();
+          setRecipes(cookbook);
+          setSelectedRecipe(cookbook[0]);}
+          }
+          > Reset Recipes </Button>
+      }/>
+      </Row>
     </Container>
   )
 }
