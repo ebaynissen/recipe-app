@@ -6,14 +6,14 @@ export default function RecipeDisplay({Recipe, removeFromCatalogue}) {
 
     useEffect(() => {
         // Update the relevant states when new recipe selected
-        setUnitUS(Recipe.unitUS);
+        //setUnitUS(Recipe.unitUS);
         setIngredientList(Object.keys(Recipe.ingredients));
         setPortions(Recipe.portions);
         setDispIng(Recipe.ingredients);
         setImage(Recipe.image);
       }, [Recipe]);
 
-    const [unitUS, setUnitUS] = useState(Recipe.unitUS); // boolean state based on switch for which unit shown.
+    const [unitUS, setUnitUS] = useState(false); // boolean state based on switch for which unit shown.
     const [ingredient_list, setIngredientList] = useState(Object.keys(Recipe.ingredients));
     const [portions, setPortions] = useState(Recipe.portions);
     const [dispIng, setDispIng] = useState(Recipe.ingredients);

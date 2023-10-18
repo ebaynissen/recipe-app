@@ -1,4 +1,4 @@
-import { Container, Nav, Navbar, Form, Button } from "react-bootstrap";
+import { Container, Nav, Navbar, Form, Button, Row } from "react-bootstrap";
 
 export default function Navigation({ recipes, searched, setPage }) {
     function handleSearch() {
@@ -40,14 +40,9 @@ export default function Navigation({ recipes, searched, setPage }) {
                                 Popular 
                             </Button>
                         </Nav.Item>
-                        <Button variant="outline-success" onClick={() => {setPage('newRecipe')}}>
-                            {" "}
-                            + Create New Recipe
-                        </Button>
+                        
                         
                     </Nav>
-                    
-
                     <Form className="d-flex">
                         <Form.Control
                             type="search"
@@ -63,6 +58,11 @@ export default function Navigation({ recipes, searched, setPage }) {
                             Search
                         </Button>
                     </Form>
+                    
+                    <Button className="ms-5" variant="success" onClick={() => {setPage('newRecipe')}}>
+                            {" "}
+                            + Create New Recipe
+                        </Button>
                 </Navbar.Collapse>
             </Container>
         </Navbar>

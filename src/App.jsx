@@ -5,16 +5,18 @@ import Navigation from './components/Navigation';
 import { Container, Row, Col } from 'react-bootstrap';
 import DisplayCard from './components/DisplayCard';
 import RecipeDisplay from './components/RecipeDisplay';
+import RecipePreview from './components/RecipePreview';
 import NewRecipeForm from './components/NewRecipeForm';
 import RecipeList from './components/RecipeList';
 import OpenFoodFacts from './api/OpenFoodFacts';
 import { cookbook } from './classes/CookBook';
 import { useState } from 'react';
 import { Recipe } from './classes/Recipe';
+import { Last } from 'react-bootstrap/esm/PageItem';
 
 function App() {
 
-  const [page, setPage] = useState('home')
+  const [page, setPage] = useState("")
   const [recipes, setRecipes] = useState( () => {
   if(localStorage.length == 0){
 
@@ -38,24 +40,42 @@ function App() {
     let temp = (recipes).filter((a) => a.id !== recipe.id);
     setRecipes(temp)
     localStorage.setItem("Cookbook", JSON.stringify(temp));
-    setSelectedRecipe(recipes[0])
+    if (temp.length !== 0){
+    setSelectedRecipe(recipes[-1])}
+    else{
+      setSelectedRecipe(new Recipe("NO RECIPES FOUND"));
+    }
   }
 
-  function ShowManyRecipes(){
+  function ShowManyFullRecipes(){
     const show = recipes.map((rec) => 
       <Row key={rec}>
       <DisplayCard content={<RecipeDisplay Recipe={rec} removeFromCatalogue={removeFromCatalogue}/> } />
       </Row>
-    
     );
-
     return(
       <div>
       {show}
+      </div> )
+  }
+
+  function Preview(){
+    const show = recipes.map((rec) => 
+    <div>
+      <Row key={rec}>
+      <RecipePreview Recipe={rec} setSelectedRecipe={setSelectedRecipe}/>       
+      </Row>
+      <Row> 
+      <p> </p></Row>
+      </div>
+    );
+    return (
+      <div>
+      <h2> Popular Recipes </h2>
+      <p> Click a recipe to open it! </p>
+      {show}
       </div>
     )
-
-    
   }
 
   function CardSelection(){
@@ -77,7 +97,7 @@ function App() {
         <div>
         <Row>  
         <Col>               
-        <DisplayCard content={<ShowManyRecipes/>}/>
+        <DisplayCard content={<ShowManyFullRecipes/>}/>
         </Col>
       </Row>
       </div>
@@ -94,12 +114,13 @@ function App() {
           {/*
         <Col><DisplayCard content={"Saved Recipes"}/></Col>
         */}
-        <Col xs={3}><DisplayCard content={<OpenFoodFacts />}/></Col>
+        <Col xs={5}><DisplayCard content={<OpenFoodFacts />}/></Col>
        </Row>
         <Row>  
-        <Col>               
+        <Col xs={9}>               
           <DisplayCard content={<RecipeDisplay Recipe={selectedRecipe} removeFromCatalogue={removeFromCatalogue}/>}/>
         </Col>   
+        <Col xs={3}><DisplayCard content={<Preview />}/></Col>
       </Row>
       </div>
       

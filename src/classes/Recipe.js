@@ -6,7 +6,7 @@ export class Recipe {
     constructor(
         name = "Missing title", 
         author = "unknown", 
-        ingredients = {}, 
+        ingredients = {"Item": "No Ingredients" , "Amount": "", "Unit": ""}, 
         time = "0", 
         description = "Missing description", 
         steps = ["Missing Steps"], 
