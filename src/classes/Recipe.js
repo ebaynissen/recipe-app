@@ -32,7 +32,7 @@ export class Recipe {
         let ingredients = {};
         for (let ing in this.ingredients) {
             ingredients[ing] = {
-                amount: (this.ingredients[ing].amount / this.portions) * multiplier,
+                amount: Number(((this.ingredients[ing].amount / this.portions) * multiplier).toFixed(3)),
                 unit: this.ingredients[ing].unit
             }
         }

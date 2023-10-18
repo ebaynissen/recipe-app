@@ -64,8 +64,7 @@ function App() {
         <Row>  
         <Col>               
         <DisplayCard content={<NewRecipeForm addToCatalogue={addToCatalogue} />}/> 
-        </Col>
-        <Col xs={3}><DisplayCard content={"Unit Calculator"}/></Col>   
+        </Col> 
       </Row>
       </div>
         
@@ -78,7 +77,6 @@ function App() {
         <Col>               
         <DisplayCard content={<ShowManyRecipes/>}/>
         </Col>
-        <Col xs={3}><DisplayCard content={"Unit Calculator"}/></Col>   
       </Row>
       </div>
         
@@ -91,7 +89,9 @@ function App() {
         <Col xs={7}>
           <DisplayCard content={<RecipeList recipes={recipes} setView={setSelectedRecipe}/>}/>
         </Col>
+          {/*
         <Col><DisplayCard content={"Saved Recipes"}/></Col>
+        */}
         <Col xs={3}><DisplayCard content={<OpenFoodFacts />}/></Col>
        </Row>
         <Row>  

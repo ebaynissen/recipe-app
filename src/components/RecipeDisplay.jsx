@@ -1,4 +1,4 @@
-import { Container, Row, Col, Form, Card, Button} from 'react-bootstrap';
+import { Row, Col, Form, Card, Button, FormLabel} from 'react-bootstrap';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -24,15 +24,17 @@ export default function RecipeDisplay({Recipe, removeFromCatalogue}) {
         setPortions(newPortions);
         setDispIng(Recipe.getIngredients(newPortions, unitUS));
     }
+    {/* 
     function changeUnitUS(e){
         let newUnitUS = !unitUS
         setUnitUS(newUnitUS);
         setDispIng(Recipe.getIngredients(portions, newUnitUS))
     }
+*/}
     const reader = new FileReader();
     return (
 
-    <Card  className='bg-light'>
+    <Card className='bg-light'>
         <Card.Body>
         <Row>
             <Col>
@@ -58,8 +60,10 @@ export default function RecipeDisplay({Recipe, removeFromCatalogue}) {
                 <div className="form-check form-switch">
                 <Form>
                 <div className='form-group '>
-                    <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={changeUnitUS} checked= {unitUS}/>
-                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Switch to US units</label>
+                                    {/* <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={changeUnitUS} checked= {unitUS}/>
+                                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Switch to US units</label>
+    */}
+                     <h5>Change Portions: </h5>               
                     <Form.Control type="number"id="portionSelect" min={1} onChange={changeAmounts}value={portions}/>              
                     <Form.Label>Portions</Form.Label>
                 </div>      
