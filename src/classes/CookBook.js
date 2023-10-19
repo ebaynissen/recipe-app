@@ -25,5 +25,11 @@ export const cookbook = [
       ["Mix", "Fry", "Fart"], false, 4, {"Smelly": true, "Tasty": false},
       "./public/Images/Pannkakor.jpeg"
     ),
-    new Recipe(/* Empty Test */)
+    new Recipe(
+      "Air cake", "Mikael",
+      {"Air butter:": { amount:"0", unit:"gram"}, "Air sugar": {amount:"0", unit:"tbs"}, "Air flour": {amount:"0", unit:"ml"}, "Air eggs": { amount:"0", unit:"pieces"}, "Air salt": {amount:"0", unit:"tbs"}},
+      "0",
+      "Cake as easy to make as breathing",
+      ["pretend you have the ingredients", "inhale", "exhale", "repeat"], false, 0, {"Gluten-free":true, "Lactose-free":true, "Vegetarian":true,"Vegan":true,"Healthy":true},
+    )
 ]

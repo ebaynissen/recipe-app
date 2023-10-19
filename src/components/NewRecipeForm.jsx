@@ -9,8 +9,8 @@ export default function NewRecipeForm({addToCatalogue}) {
     const [unitUS, setUnitUS] = useState(false);
     const [validated, setValidated] = useState(false);
     const [tempItem, setTempItem] = useState({"Item": "Ingredient" , "Amount": 0, "Unit": "pieces"});
-    const [image, setImage] = useState(null);
-    const [tags, setTags] = useState({"Gluten-free" : false, "Lactose-free": false, "Vegetarian": false, "Vegan": false, "Savoury" : false, "Sweet/Dessert": false});
+    const [image, setImage] = useState("./public/Images/kladdkaka.jpeg");
+    const [tags, setTags] = useState({"Gluten-free" : false, "Lactose-free": false, "Vegetarian": false, "Vegan": false, "Savoury" : false, "Sweet/Dessert": false, "Healthy":false});
 
 
     function onCheck(e){
@@ -177,15 +177,24 @@ export default function NewRecipeForm({addToCatalogue}) {
                         <img
                         alt="not found"
                         width={"200px"}
-                        src={URL.createObjectURL(image)}
+                        src={image}
                         />
                     </div>
                  )}
                 <Form.Group className="mb-3">
                     <Form.Label>Upload a picture for your recipe!</Form.Label>
-                    <Form.Control type="file" id="form.picture" onChange={(e)=> {
-                        console.log(e.target.files[0]);
-                        setImage(e.target.files[0]);}}/>
+                    <Form.Control type="file" id="form.picture" />
+                </Form.Group>
+                <Form.Group className="mb-3">
+  
+                    <Form.Select className="mb-3" onChange={(e) => {
+                                console.log(e.target.value);
+                                setImage(e.target.value);}}>
+                        <option value="./public/Images/kladdkaka.jpeg">kladdkaka</option>
+                        <option value="./public/Images/Pannkakor.jpeg">Pannkakor</option>
+                        <option value="./public/Images/carbonara.jpeg">carbonara</option>
+                    </Form.Select>
+
                 </Form.Group>
                 <Form.Group className="mb-3">
                         <TagCreator/>
@@ -229,7 +238,7 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
             unitUS,        //unitType
             form[2].value,  //portions
             tags,
-            image.name
+            image
         );
 
         addToCatalogue(newRec)
