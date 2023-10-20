@@ -35,7 +35,7 @@ export default function RecipeDisplay({Recipe, removeFromCatalogue}) {
     return (
 
     <Card className='bg-light'>
-        <Card.Body>
+    <Card.Body>
         <Row>
             <Col>
                 <Card.Img style={{ width: '18rem' }} variant="top" 
@@ -49,7 +49,12 @@ export default function RecipeDisplay({Recipe, removeFromCatalogue}) {
                     <Card.Title><h1>{Recipe.name}</h1></Card.Title>
                 </Row>
                 <Row>
-                    <small>By: <i>{Recipe.author}</i> <div className="vr mx-2"></div>Time: {Recipe.time} Minutes <div className="vr mx-2"></div> Portions: {Recipe.portions}</small>
+                    <small>By: <i>{Recipe.author}</i> 
+                        <div className="vr mx-2"></div>
+                        Time: {Recipe.time} Minutes 
+                        <div className="vr mx-2"></div> 
+                        Portions: {Recipe.portions}
+                    </small>
                     <p>{Recipe.description}</p>
                     <hr/>
                  </Row>
@@ -60,11 +65,15 @@ export default function RecipeDisplay({Recipe, removeFromCatalogue}) {
                 <div className="form-check form-switch">
                 <Form>
                 <div className='form-group '>
-                                    {/* <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={changeUnitUS} checked= {unitUS}/>
-                                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Switch to US units</label>
-    */}
+                     {/* <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={changeUnitUS} checked= {unitUS}/>
+                        <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Switch to US units</label>*/}
                      <h5>Change Portions: </h5>               
-                    <Form.Control type="number"id="portionSelect" min={1} onChange={changeAmounts}value={portions}/>              
+                    <Form.Control 
+                        type="number"
+                        id="portionSelect" 
+                        min={1} 
+                        onChange={changeAmounts}
+                        value={portions}/>              
                     <Form.Label>Portions</Form.Label>
                 </div>      
                 </Form>
@@ -72,44 +81,45 @@ export default function RecipeDisplay({Recipe, removeFromCatalogue}) {
             </Col>
         </Row>
         <hr/>
-
         <Row>       
             <Col>
                 <h3>Ingredients</h3>
                 <ul>   
-                    {ingredient_list.map((ing) => <li key={ing}>{`${ing} - ${dispIng[ing].amount} ${dispIng[ing].unit}`}</li>)}
+                {ingredient_list.map((ing) => <li key={ing}>{`${ing} - ${dispIng[ing].amount} ${dispIng[ing].unit}`}</li>)}
                 </ul>
             </Col>
             <Col>
                 <h3>Instructions </h3>
                 <ol>
-                    {Recipe.steps.map((step) => <li key={step}>{step}</li>) ?? "No instructions"}
+                {Recipe.steps.map((step) => <li key={step}>{step}</li>) ?? "No instructions"}
                 </ol>
              </Col>                
         </Row>
         <Row>
-        <b><small>Tags: </small></b>
-                <ol>
-                    {Object.keys(Recipe.tags).filter((tag) => Recipe.tags[tag]).map((tag) => <small key={tag}>{tag}, </small>) ?? "No tags"}
-                </ol>
+        <b> <small>Tags: </small> </b>
+            <ol>
+                {Object.keys(Recipe.tags).filter((tag) => Recipe.tags[tag]).map((tag) => <small key={tag}>{tag}, </small>) ?? "No tags"}
+            </ol>
         </Row>
         <Row>
-        <Col>
+        {/*<Col>
         <Button variant="outline-secondary" onClick={editHandler()}>
                     Edit
         </Button>
-        </Col>
-        <Col>
-        <Button variant="outline-secondary" 
-        onClick={() => removeFromCatalogue(Recipe)}>
+        </Col>*/}
+            <Col>
+                <Button variant="outline-secondary" 
+                        onClick={() => removeFromCatalogue(Recipe)}>
                     Delete Recipe
-        </Button>
-        </Col>
+                </Button>
+            </Col>
         </Row>
-        </Card.Body>
+    </Card.Body>
     </Card>
     )
 }
+/*
 function editHandler(){
     //implement
 }
+*/

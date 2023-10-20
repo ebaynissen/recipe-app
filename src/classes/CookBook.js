@@ -1,5 +1,5 @@
 import { Recipe } from "./Recipe.js";
-
+{/* Some recipes for the starting catalogue*/}
 export const cookbook = [
   new Recipe(
     "Kladdkaka", "Lilly",

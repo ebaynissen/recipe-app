@@ -6,7 +6,7 @@ import { Recipe } from "../classes/Recipe";
 
 export default function NewRecipeForm({addToCatalogue, setPage}) {
     const [ingredients, setIngredients] = useState({});
-    const [unitUS, setUnitUS] = useState(false);
+    const [unitUS, setUnitUS] = useState(false); //DEPRECATED
     const [validated, setValidated] = useState(false);
     const [tempItem, setTempItem] = useState({"Item": "Ingredient" , "Amount": 0, "Unit": "pieces"});
     const [image, setImage] = useState("./public/Images/MissingImage.jpeg");
@@ -39,11 +39,11 @@ export default function NewRecipeForm({addToCatalogue, setPage}) {
         )
     }   
 
-
     return (
         <Container>
             <h3> Create new recipe! </h3>
-            {/* <div className="form-check form-switch">
+            {/* CODE FOR UNIT SELECTOR */
+            /* <div className="form-check form-switch">
                 <input
                     className="form-check-input"
                     type="checkbox"
@@ -127,7 +127,8 @@ export default function NewRecipeForm({addToCatalogue, setPage}) {
                             </Form.Select>
                         </Col>
                         <Col>
-                            <Button className="btn btn-success" onClick={() => addHandler(ingredients, setIngredients, tempItem, setTempItem)}>
+                            <Button className="btn btn-success" 
+                            onClick={() => addHandler(ingredients, setIngredients, tempItem, setTempItem)}>
                             Add
                             </Button>
                         </Col>
@@ -137,7 +138,8 @@ export default function NewRecipeForm({addToCatalogue, setPage}) {
                         <ul>
                             {Object.keys(ingredients).map((ing) => (
                               <li key={ing}>{`${ing} - ${ingredients[ing].amount} ${ingredients[ing].unit}`} 
-                              <CloseButton onClick={() => removeHandler(ingredients, setIngredients, ing)}></CloseButton></li>)
+                              <CloseButton onClick={() => removeHandler(ingredients, setIngredients, ing)}>
+                              </CloseButton></li>)
                             )}
                         </ul>
                         <hr/>
@@ -204,17 +206,15 @@ export default function NewRecipeForm({addToCatalogue, setPage}) {
                     </div>
                 </Form.Group>
 
-                {/* Code for uploading custom image. */
+                {/* CODE FOR UPLOADING CUSTOM IMAGE. */
                 /*<Form.Group className="mb-3">
                     <Form.Label>Upload a picture for your recipe!</Form.Label>
                     <Form.Control type="file" id="form.picture" />
-                </Form.Group>*/ }
-                
+                </Form.Group>*/ }             
 
                 <Form.Group className="mb-3">
                         <TagCreator/>
                 </Form.Group>
-
 
 				<Button variant="primary" type="submit">
 					Submit
@@ -224,7 +224,9 @@ export default function NewRecipeForm({addToCatalogue, setPage}) {
     );
 }
 
-
+/**
+ * Function to handle form submission
+ */
 function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated, image, setImage, tags, setTags, setTempItem){
   e.preventDefault();
   e.stopPropagation();
@@ -260,7 +262,9 @@ if (form.checkValidity() === false) { /* Do nothing, was-validated sets correct 
         setPage("home") //Return to homepage
     }
 }
-
+/**
+ * Function to handle adding ingredients to recipe
+ */
 function addHandler(ingredients, setIngredients, tempItem, setTempItem){
     var temp = ingredients;
     temp[tempItem.Item] = {amount : tempItem.Amount, unit:tempItem.Unit};
@@ -270,10 +274,11 @@ function addHandler(ingredients, setIngredients, tempItem, setTempItem){
     document.getElementById("form.amount").value = "";
     document.getElementById("form.unit").value ="g";
 }
-
+/**
+ * Function to handle removing ingredients to recipe
+ */
 function removeHandler(ingredients, setIngredients, ing) {
-
-const temp = Object.fromEntries(Object.entries(ingredients).filter(([key, val]) => key!==ing));
+    const temp = Object.fromEntries(Object.entries(ingredients).filter(([key, val]) => key!==ing));
     setIngredients(temp);
 }
 

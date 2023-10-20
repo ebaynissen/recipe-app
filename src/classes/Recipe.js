@@ -1,5 +1,9 @@
 import { v4 as uuid } from "uuid";
 
+/**
+ * Recipe class used to store different recipes.
+ * parameters keep track of relevant info such as title, author, ingredients...
+ */
 export class Recipe {
     id = uuid();
 
@@ -27,7 +31,12 @@ export class Recipe {
         this.image = (image);
     
     }
-
+/**
+ * Function used to get ingredients for multipler amount of portions.
+ * @param {int} multiplier - amount of portions
+ * @param {boolean} unitUS DEPRECATED
+ * @returns ingredients after with new portion amount
+ */
     getIngredients(multiplier = 1, unitUS = false) {
         let ingredients = {};
         for (let ing in this.ingredients) {
@@ -36,20 +45,22 @@ export class Recipe {
                 unit: this.ingredients[ing].unit
             }
         }
-        if(unitUS){ //if we want US-units
+        if(unitUS){ //DEPRECATED
             /*TODO: implement conversion method using API */
         }
         return ingredients;
     }
-
+/**
+ * Function to turn normal datatstructure into a recipe object
+ * @param {string or arrya} str 
+ * @returns recipe object or array of recipe objects
+ */
     static parse(str){
         
         const arr = JSON.parse(str);
      
-        if(Array.isArray(arr)){ //turn string into object. If its a string in[] it will become an array object.
-             // console.log('THIS IS AN ARRAY!');
-            return arr.map(element => {
-                //console.log('iteration element: ' + JSON.stringify(element['ingredients']));
+        if(Array.isArray(arr)){
+            return arr.map(element => { //return array of recipe objects
                 const rec = new Recipe();
                 rec.name = element['name'];
                 rec.author = element['author'];

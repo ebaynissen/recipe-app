@@ -5,12 +5,11 @@ import { useEffect } from 'react';
 export default function RecipePreview({Recipe, setSelectedRecipe}) {
 
     return (
-
     <Card border="dark" className='' onClick={() => {setSelectedRecipe(Recipe)}} style={{ height: '18rem', cursor: "pointer"}}>
         <Card.Body>
         <Row>
             <Col>
-                <Card.Img style={{ height: '16rem' }} variant="top" 
+                <Card.Img style={{ height: '16rem' , "object-fit": "cover" }} variant="top" 
                 src={Recipe.image}
                 alt="not found"
                 width={"80px"}/>
@@ -25,16 +24,11 @@ export default function RecipePreview({Recipe, setSelectedRecipe}) {
                     <small>Portions: {Recipe.portions}</small>
                     <hr/>
                     <p>{Recipe.description}</p>
-                    
                  </Row>
             </Col>
-            
         </Row>
     
         </Card.Body>
     </Card>
     )
-}
-function editHandler(){
-    //implement
 }
