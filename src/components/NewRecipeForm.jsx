@@ -9,7 +9,7 @@ export default function NewRecipeForm({addToCatalogue}) {
     const [unitUS, setUnitUS] = useState(false);
     const [validated, setValidated] = useState(false);
     const [tempItem, setTempItem] = useState({"Item": "Ingredient" , "Amount": 0, "Unit": "pieces"});
-    const [image, setImage] = useState("./public/Images/kladdkaka.jpeg");
+    const [image, setImage] = useState("./public/Images/MissingImage.jpeg");
     const [tags, setTags] = useState({"Gluten-free" : false, "Lactose-free": false, "Vegetarian": false, "Vegan": false, "Savoury" : false, "Sweet/Dessert": false, "Healthy":false});
 
 
@@ -42,8 +42,8 @@ export default function NewRecipeForm({addToCatalogue}) {
 
     return (
         <Container>
-            <b> Create new recipe! </b>
-            <div className="form-check form-switch">
+            <h3> Create new recipe! </h3>
+            {/* <div className="form-check form-switch">
                 <input
                     className="form-check-input"
                     type="checkbox"
@@ -54,15 +54,17 @@ export default function NewRecipeForm({addToCatalogue}) {
                 />
                 <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
                     Switch to US units</label>
-            </div>
+            </div> */}
 	
             <Form id="form" noValidate validated={validated} onSubmit={(e) => handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, setUnitUS, setValidated, image, setImage, tags, setTags, setTempItem)}>
-                <Form.Group >
+                
+                <Form.Group className="my-3">
                     <Form.Label>Recipe Name</Form.Label>
                     <Form.Control required type="text" placeholder="Enter recipe name" id="form.name"/>
                     <Form.Control.Feedback type="invalid"> Please enter a Recipe name! </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group >
+
+                <Form.Group className="mb-3">
                     <Form.Label>Author</Form.Label>
                     <Form.Control 
                       required 
@@ -72,7 +74,8 @@ export default function NewRecipeForm({addToCatalogue}) {
                     />
                     <Form.Control.Feedback type="invalid"> Please enter an Author! </Form.Control.Feedback>
                 </Form.Group>
-				        <Form.Group>
+
+				<Form.Group className="mb-3">
                     <Form.Label>Portions</Form.Label>
                     <Form.Control 
                       required 
@@ -82,13 +85,13 @@ export default function NewRecipeForm({addToCatalogue}) {
                     />
                     <Form.Control.Feedback type="invalid"> Please enter the amount of portions! </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group>
+
+                <Form.Group className="mb-3">
                     <Form.Label>Ingredients</Form.Label>
-                    
                     <Row>
                     <small> You cannot add the same ingredient twice, it will update the first one.</small>
-                        <Col>
-                            <Form.Control
+                        <Col className="mb-2">
+                            <Form.Control 
                                 type="text"
                                 placeholder="Ingredient"
                                 id="form.ingredient"
@@ -96,8 +99,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                                   const t = tempItem;  
                                   t.Item = e.target.value;
                                   setTempItem(t);
-                                  }}
-                            />
+                                  }} />
                         </Col>
                         <Col>
                             <Form.Control 
@@ -108,8 +110,7 @@ export default function NewRecipeForm({addToCatalogue}) {
                                 onChange={(e) => {
                                   const t = tempItem;  
                                   t.Amount = e.target.value;
-                                  setTempItem(t)}}
-                            />
+                                  setTempItem(t)}} />
                         </Col>
                         <Col>
                             <Form.Select aria-label="Unit"
@@ -139,11 +140,13 @@ export default function NewRecipeForm({addToCatalogue}) {
                               <CloseButton onClick={() => removeHandler(ingredients, setIngredients, ing)}></CloseButton></li>)
                             )}
                         </ul>
-                    </div>
+                        <hr/>
+                    </div>  
                 </Form.Group>
-                <Form.Group  >
+
+                <Form.Group className="mb-3">
                     <Form.Label>Time (mins)</Form.Label>
-                    <Form.Control
+                    <Form.Control 
                         required
                         type="number"
                         placeholder="Enter recipe time"
@@ -152,18 +155,20 @@ export default function NewRecipeForm({addToCatalogue}) {
                     />
                     <Form.Control.Feedback type="invalid"> Please enter the time required to make this recipe! </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group >
+
+                <Form.Group className="mb-3">
                     <Form.Label>Description</Form.Label>
-                    <Form.Control
+                    <Form.Control 
                         as="textarea"
                         rows={3}
                         placeholder="Enter a short recipe description"
                         id="form.description"
                     />
                 </Form.Group>
-                <Form.Group >
+
+                <Form.Group className="mb-4">
                     <Form.Label>Steps</Form.Label>
-                    <Form.Control
+                    <Form.Control 
                         required
                         as="textarea"
                         rows={3}
@@ -172,30 +177,40 @@ export default function NewRecipeForm({addToCatalogue}) {
                     />
                     <Form.Control.Feedback type="invalid"> Please enter Recipe instructions! </Form.Control.Feedback>
                 </Form.Group>
-                {image && (
-                    <div>
-                        <img
-                        alt="not found"
+
+
+                <Form.Group className="mb-3 row">
+                    <div className="col-md-2">
+                        {image && 
+                            (<img alt="not found"
                         width={"200px"}
                         src={image}
-                        />
+                        />)}
                     </div>
-                 )}
-                <Form.Group className="mb-3">
-                    <Form.Label>Upload a picture for your recipe!</Form.Label>
-                    <Form.Control type="file" id="form.picture" />
-                </Form.Group>
-                <Form.Group className="mb-3">
-  
-                    <Form.Select className="mb-3" onChange={(e) => {
+
+                    <div className="col-md-5 my-5">
+                        <Form.Label>Select a picture for your recipe!</Form.Label>
+                        <Form.Select className="my-2" onChange={(e) => {
                                 console.log(e.target.value);
                                 setImage(e.target.value);}}>
-                        <option value="./public/Images/kladdkaka.jpeg">kladdkaka</option>
-                        <option value="./public/Images/Pannkakor.jpeg">Pannkakor</option>
-                        <option value="./public/Images/carbonara.jpeg">carbonara</option>
-                    </Form.Select>
-
+                            <option value="./public/Images/MissingImage.jpeg">Select a picture!</option>
+                            <option value="./public/Images/kladdkaka.jpeg">Chocolate Cake</option>
+                            <option value="./public/Images/Pannkakor.jpeg">Pancakes</option>
+                            <option value="./public/Images/carbonara.jpeg">Pasta Carbonara</option>
+                            <option value="./public/Images/Pizza.jpeg">Pizza</option>
+                            <option value="./public/Images/salad.jpeg">Salad</option>
+                            <option value="./public/Images/soup.jpeg">Soup</option>
+                        </Form.Select>
+                    </div>
                 </Form.Group>
+
+                {/* Code for uploading custom image. */
+                /*<Form.Group className="mb-3">
+                    <Form.Label>Upload a picture for your recipe!</Form.Label>
+                    <Form.Control type="file" id="form.picture" />
+                </Form.Group>*/ }
+                
+
                 <Form.Group className="mb-3">
                         <TagCreator/>
                 </Form.Group>
@@ -217,18 +232,9 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
   const form = e.currentTarget;
   console.log(image);
 
-  if (form.checkValidity() === false) {}
-  else {
-
-    
-
-    //const im = new ImageData(URL.createObjectURL(image));
-    
-    
-    
-    localStorage.setItem(image.name, image);
-    
-    
+if (form.checkValidity() === false) { /* Do nothing, was-validated sets correct error handling */}
+  else {  
+        localStorage.setItem(image.name, image);
         const newRec = new Recipe(form[0].value, //time
             form[1].value, //author
             ingredients, 
