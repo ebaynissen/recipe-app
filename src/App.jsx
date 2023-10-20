@@ -88,14 +88,14 @@ function App() {
         <div>
         <Row>  
         <Col>               
-        <DisplayCard content={<NewRecipeForm addToCatalogue={addToCatalogue} />}/> 
+        <DisplayCard content={<NewRecipeForm addToCatalogue={addToCatalogue} setPage={setPage}/>}/> 
         </Col> 
       </Row>
       </div>
         
       )
     }
-    if (page == "popular"){
+    else if (page == "popular"){
       return(
         <div>
         <Row>  

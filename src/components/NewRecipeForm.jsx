@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Recipe } from "../classes/Recipe";
 
-export default function NewRecipeForm({addToCatalogue}) {
+export default function NewRecipeForm({addToCatalogue, setPage}) {
     const [ingredients, setIngredients] = useState({});
     const [unitUS, setUnitUS] = useState(false);
     const [validated, setValidated] = useState(false);
@@ -242,7 +242,7 @@ function handleSubmit(e, addToCatalogue, ingredients, unitUS, setIngredients, se
         setValidated(false);
         e.target.reset();
         e.target.classList.remove("was-validated");
-        window.location.href = "http://localhost:4000/" //Return to homepage
+        setPage("home") //Return to homepage
     }
 }
 
