@@ -2,5 +2,8 @@
 
 # How to run:
 
-install necessary dependencies
-run with `npx vite --port=4000`
+install necessary dependencies with `npm install`	
+run with `npx run start`
+
+# Troubleshooting
+If you cant see everything properly, zoom out in the browser
